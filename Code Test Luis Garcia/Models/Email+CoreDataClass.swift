@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Email)
+
 public class Email: NSManagedObject {
 
 }

@@ -19,10 +19,18 @@ class ContactsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "Contacts"
         self.contactsTableView.register(UINib(nibName: "ContactsTableViewCell", bundle: nil), forCellReuseIdentifier: ContactsTableViewCell.identifier)
         self.fetchContacts()
         self.setNavigationButton()
+        
+        NotificationCenter.default.addObserver(for: NotificationCenter.refreshContactList, object: nil, queue: nil) { [weak self] in
+            self?.fetchContacts()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .refreshContactList, object: nil)
     }
 
     func setNavigationButton() {
@@ -40,6 +48,7 @@ class ContactsViewController: UIViewController {
         do {
             self.fetchedContacts = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
             try self.fetchedContacts.performFetch()
+            self.contactsTableView.reloadData()
         } catch {
             print("Could not fetch \(error.localizedDescription)")
         }
@@ -47,7 +56,7 @@ class ContactsViewController: UIViewController {
     
     //MARK: - User Actions
     @objc func addContact() {
-        
+        self.navigationController?.pushViewController(AddContactViewController(), animated: true)
     }
 
 }

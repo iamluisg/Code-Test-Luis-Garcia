@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Phone)
+
 public class Phone: NSManagedObject {
 
 }

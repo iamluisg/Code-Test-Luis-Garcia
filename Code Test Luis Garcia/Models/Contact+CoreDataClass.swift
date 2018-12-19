@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Contact)
+
 public class Contact: NSManagedObject {
     var fullName: String {
         return "\(self.firstName) \(self.lastName)"

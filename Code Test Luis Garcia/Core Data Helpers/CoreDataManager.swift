@@ -24,5 +24,21 @@ class CoreDataManager {
         })
         return container
     }()
+    
+    func saveContact(firstName: String, lastName: String, dob: Date?, completion: @escaping (NSError?) -> ()) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let contact = Contact(context: context)
+        contact.firstName = firstName
+        contact.lastName = lastName
+        if let dob = dob {
+            contact.dob = dob as NSDate
+        }
+        do {
+            try context.save()
+            completion(nil)
+        } catch {
+            completion(error as NSError)
+        }
+    }
 }
 

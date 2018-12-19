@@ -27,6 +27,12 @@
 		9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */; };
 		9C44CF1221CAAF87007F03C2 /* ContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */; };
 		9C44CF1421CAB047007F03C2 /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */; };
+		9C44CF1721CADA48007F03C2 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1521CADA48007F03C2 /* AddContactViewController.swift */; };
+		9C44CF1821CADA48007F03C2 /* AddContactViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CF1621CADA48007F03C2 /* AddContactViewController.xib */; };
+		9C44CF1C21CAE57B007F03C2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1B21CAE57B007F03C2 /* DateExtensions.swift */; };
+		9C44CF1E21CAEB3C007F03C2 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1D21CAEB3C007F03C2 /* Validate.swift */; };
+		9C44CF2021CAECF3007F03C2 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1F21CAECF3007F03C2 /* UIViewControllerExtensions.swift */; };
+		9C44CF2221CB0289007F03C2 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +58,12 @@
 		9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
 		9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsTableViewCell.xib; sourceTree = "<group>"; };
 		9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		9C44CF1521CADA48007F03C2 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
+		9C44CF1621CADA48007F03C2 /* AddContactViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContactViewController.xib; sourceTree = "<group>"; };
+		9C44CF1B21CAE57B007F03C2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		9C44CF1D21CAEB3C007F03C2 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
+		9C44CF1F21CAECF3007F03C2 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +103,12 @@
 				9C44CEF221CA9DEE007F03C2 /* ContactsViewController.xib */,
 				9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */,
 				9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */,
-				9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */,
-				9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */,
-				9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */,
+				9C44CF1521CADA48007F03C2 /* AddContactViewController.swift */,
+				9C44CF1621CADA48007F03C2 /* AddContactViewController.xib */,
+				9C44CF1D21CAEB3C007F03C2 /* Validate.swift */,
+				9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */,
+				9C44CF1921CADA58007F03C2 /* Extensions */,
+				9C44CF1A21CADA64007F03C2 /* Custom Views */,
 				9C44CEE621CA9B8C007F03C2 /* Assets.xcassets */,
 				9C44CEE821CA9B8C007F03C2 /* LaunchScreen.storyboard */,
 				9C44CEEB21CA9B8C007F03C2 /* Info.plist */,
@@ -123,6 +138,25 @@
 				9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */,
 			);
 			path = "Core Data Helpers";
+			sourceTree = "<group>";
+		};
+		9C44CF1921CADA58007F03C2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */,
+				9C44CF1F21CAECF3007F03C2 /* UIViewControllerExtensions.swift */,
+				9C44CF1B21CAE57B007F03C2 /* DateExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9C44CF1A21CADA64007F03C2 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */,
+				9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */,
+			);
+			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C44CEEA21CA9B8C007F03C2 /* LaunchScreen.storyboard in Resources */,
+				9C44CF1821CADA48007F03C2 /* AddContactViewController.xib in Resources */,
 				9C44CEF421CA9DEE007F03C2 /* ContactsViewController.xib in Resources */,
 				9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */,
 				9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */,
@@ -199,11 +234,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */,
+				9C44CF2221CB0289007F03C2 /* NotificationCenterManager.swift in Sources */,
+				9C44CF1C21CAE57B007F03C2 /* DateExtensions.swift in Sources */,
 				9C44CF0321CAAA27007F03C2 /* Email+CoreDataClass.swift in Sources */,
 				9C44CEFD21CAAA27007F03C2 /* Address+CoreDataClass.swift in Sources */,
 				9C44CEE521CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld in Sources */,
 				9C44CF0721CAAABF007F03C2 /* Address+CoreDataProperties.swift in Sources */,
 				9C44CF0421CAAA27007F03C2 /* Email+CoreDataProperties.swift in Sources */,
+				9C44CF2021CAECF3007F03C2 /* UIViewControllerExtensions.swift in Sources */,
 				9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */,
 				9C44CF0221CAAA27007F03C2 /* Contact+CoreDataProperties.swift in Sources */,
 				9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */,
@@ -211,6 +249,8 @@
 				9C44CEFF21CAAA27007F03C2 /* Phone+CoreDataClass.swift in Sources */,
 				9C44CEF321CA9DEE007F03C2 /* ContactsViewController.swift in Sources */,
 				9C44CF0121CAAA27007F03C2 /* Contact+CoreDataClass.swift in Sources */,
+				9C44CF1721CADA48007F03C2 /* AddContactViewController.swift in Sources */,
+				9C44CF1E21CAEB3C007F03C2 /* Validate.swift in Sources */,
 				9C44CF0021CAAA27007F03C2 /* Phone+CoreDataProperties.swift in Sources */,
 				9C44CF1421CAB047007F03C2 /* UITableViewCellExtensions.swift in Sources */,
 			);
