@@ -21,6 +21,12 @@
 		9C44CF0321CAAA27007F03C2 /* Email+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEFB21CAAA27007F03C2 /* Email+CoreDataClass.swift */; };
 		9C44CF0421CAAA27007F03C2 /* Email+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEFC21CAAA27007F03C2 /* Email+CoreDataProperties.swift */; };
 		9C44CF0721CAAABF007F03C2 /* Address+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF0621CAAABF007F03C2 /* Address+CoreDataProperties.swift */; };
+		9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */; };
+		9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */; };
+		9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */; };
+		9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */; };
+		9C44CF1221CAAF87007F03C2 /* ContactsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */; };
+		9C44CF1421CAB047007F03C2 /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +46,12 @@
 		9C44CEFB21CAAA27007F03C2 /* Email+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9C44CEFC21CAAA27007F03C2 /* Email+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9C44CF0621CAAABF007F03C2 /* Address+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
+		9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewCell.swift; sourceTree = "<group>"; };
+		9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactsTableViewCell.xib; sourceTree = "<group>"; };
+		9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +86,14 @@
 			children = (
 				9C44CF0521CAAA5F007F03C2 /* Models */,
 				9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */,
+				9C44CF0A21CAAC3E007F03C2 /* Core Data Helpers */,
 				9C44CEF121CA9DEE007F03C2 /* ContactsViewController.swift */,
 				9C44CEF221CA9DEE007F03C2 /* ContactsViewController.xib */,
+				9C44CF0F21CAAF87007F03C2 /* ContactsTableViewCell.swift */,
+				9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */,
+				9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */,
+				9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */,
+				9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */,
 				9C44CEE621CA9B8C007F03C2 /* Assets.xcassets */,
 				9C44CEE821CA9B8C007F03C2 /* LaunchScreen.storyboard */,
 				9C44CEEB21CA9B8C007F03C2 /* Info.plist */,
@@ -97,6 +115,14 @@
 				9C44CEFC21CAAA27007F03C2 /* Email+CoreDataProperties.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9C44CF0A21CAAC3E007F03C2 /* Core Data Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */,
+			);
+			path = "Core Data Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,7 +185,9 @@
 			files = (
 				9C44CEEA21CA9B8C007F03C2 /* LaunchScreen.storyboard in Resources */,
 				9C44CEF421CA9DEE007F03C2 /* ContactsViewController.xib in Resources */,
+				9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */,
 				9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */,
+				9C44CF1221CAAF87007F03C2 /* ContactsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,17 +198,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */,
 				9C44CF0321CAAA27007F03C2 /* Email+CoreDataClass.swift in Sources */,
 				9C44CEFD21CAAA27007F03C2 /* Address+CoreDataClass.swift in Sources */,
 				9C44CEE521CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld in Sources */,
 				9C44CF0721CAAABF007F03C2 /* Address+CoreDataProperties.swift in Sources */,
 				9C44CF0421CAAA27007F03C2 /* Email+CoreDataProperties.swift in Sources */,
+				9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */,
 				9C44CF0221CAAA27007F03C2 /* Contact+CoreDataProperties.swift in Sources */,
+				9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */,
 				9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */,
 				9C44CEFF21CAAA27007F03C2 /* Phone+CoreDataClass.swift in Sources */,
 				9C44CEF321CA9DEE007F03C2 /* ContactsViewController.swift in Sources */,
 				9C44CF0121CAAA27007F03C2 /* Contact+CoreDataClass.swift in Sources */,
 				9C44CF0021CAAA27007F03C2 /* Phone+CoreDataProperties.swift in Sources */,
+				9C44CF1421CAB047007F03C2 /* UITableViewCellExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
