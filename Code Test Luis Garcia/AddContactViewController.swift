@@ -10,7 +10,9 @@ import UIKit
 
 class AddContactViewController: UIViewController {
 
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var dobTextField: UITextField!
@@ -20,19 +22,36 @@ class AddContactViewController: UIViewController {
     private let dobToolbar: UIToolbar = UIToolbar()
     private var dob: Date?
     
+    private var emailArray: [String] = [String]()
+    private var phoneArray: [String] = [String]()
+    private var addressArray: [[String: String]] = [[:]]
+    private var sections = ["Person", "Phone Numbers", "Email Addresses", "Addresses"]
+    
+    internal lazy var showKeyboardToken: Token? = nil
+    internal lazy var hideKeyboardToken: Token? = nil
+    
     //MARK: - UIViewControler Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add Contact"
-        self.setDOBDatePicker()
+//        self.setDOBDatePicker()
+        self.registerTableViewCells()
+        self.setupKeyboardShowAndHide()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.emailArray.removeAll()
+        self.phoneArray.removeAll()
+        self.addressArray.removeAll()
     }
     
     //MARK: - View Controller Setup
-    func setDOBDatePicker() {
+    func setDOBDatePicker(for textField: UITextField) {
         self.dobPicker.datePickerMode = .date
         self.dobPicker.maximumDate = Date()
         self.dobPicker.addTarget(self, action: #selector(setDOBText(sender:)), for: .valueChanged)
-        self.dobTextField.inputView = self.dobPicker
+        textField.inputView = self.dobPicker
         
         self.dobToolbar.barStyle = UIBarStyle.default
         self.dobToolbar.items = [
@@ -42,7 +61,39 @@ class AddContactViewController: UIViewController {
         ]
         
         self.dobToolbar.sizeToFit()
-        self.dobTextField.inputAccessoryView = self.dobToolbar
+        textField.inputAccessoryView = self.dobToolbar
+    }
+    
+    func registerTableViewCells() {
+        self.tableView.register(UINib(nibName: "EmailTableViewCell", bundle: nil), forCellReuseIdentifier: EmailTableViewCell.identifier)
+        self.tableView.register(UINib(nibName: "PhoneTableViewCell", bundle: nil), forCellReuseIdentifier: PhoneTableViewCell.identifier)
+        self.tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil), forCellReuseIdentifier: AddressTableViewCell.identifier)
+        self.tableView.register(UINib(nibName: "ContactInfoTableViewCell", bundle: nil), forCellReuseIdentifier: ContactInfoTableViewCell.identifier)
+        self.tableView.register(UINib(nibName: "AddCellView", bundle: nil), forHeaderFooterViewReuseIdentifier: "AddCellView")
+    }
+    
+    func setupKeyboardShowAndHide() {
+        self.showKeyboardToken = NotificationCenter.default.addObserver(descriptor: NotificationCenterManager.keyboardWillShowNotification, using: {
+            [weak self] in
+            self?.keyboardWillShow(payload: $0)
+        })
+        
+        self.hideKeyboardToken = NotificationCenter.default.addObserver(descriptor: NotificationCenterManager.keyboardWillHideNotification, using: { [weak self] in
+            self?.keyboardWillHide(payload: $0)
+        })
+    }
+    
+    func keyboardWillShow(payload: KeyboardNotificationPayload) {
+        let keyboardHeight = payload.frame.height
+        UIView.animate(withDuration: payload.animationDuration) {
+            self.tableViewBottomConstraint.constant = keyboardHeight
+        }
+    }
+    
+    func keyboardWillHide(payload: KeyboardNotificationPayload) {
+        UIView.animate(withDuration: payload.animationDuration) {
+            self.tableViewBottomConstraint.constant = 0
+        }
     }
     
     //MARK: - Validation methods
@@ -87,25 +138,43 @@ class AddContactViewController: UIViewController {
         if let _ = self.dobTextField.text {
             dob = self.dobPicker.date
         }
-        CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (error) in
+        CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
             if error != nil {
                 self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
+                guard let contact = contact else {
+                    print("died in guard")
+                    return
+                }
+                let context = CoreDataManager.shared.persistentContainer.viewContext
+                let email = Email(context: context)
+                email.address = "gogogo@go.com"
+                email.type = "home"
+                email.contact = contact
+                do {
+                    try context.save()
+                } catch {
+                    
+                }
                 NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
-                self.presentAlert(title: "Successfully Saved", message: "Would you like to add details to your contact?", type: .Alert, actions: [("Not Now", .cancel), ("Yes", .default)], completionHandler: { (response) in
-                    switch response {
-                    case 0:
-                        self.navigationController?.popViewController(animated: true)
-                        return
-                    case 1:
-                        print("YOOOO ARE GOING THE THE NEXT PART!!")
-                        return
-                    default:
-                        return
-                    }
-                } )
+//                self.presentAlert(title: "Successfully Saved", message: "Would you like to add details to your contact?", type: .Alert, actions: [("Not Now", .cancel), ("Yes", .default)], completionHandler: { (response) in
+//                    switch response {
+//                    case 0:
+//                        self.navigationController?.popViewController(animated: true)
+//                        return
+//                    case 1:
+//                        self.addContactDetails()
+//                        return
+//                    default:
+//                        return
+//                    }
+//                } )
             }
         }
+    }
+    
+    func addContactDetails() {
+        
     }
 }
 
@@ -136,4 +205,125 @@ extension AddContactViewController: UIPickerViewDelegate, UIPickerViewDataSource
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 1
     }    
+}
+
+
+extension AddContactViewController: AddCellDelegate {
+    func addCellToSection(section: Int) {
+        switch section {
+        case 1:
+            self.phoneArray.append("")
+        case 2:
+            self.emailArray.append("")
+        case 3:
+            self.addressArray.append([:])
+        default:
+            return
+        }
+        self.tableView.reloadData()
+    }
+}
+
+extension AddContactViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 160
+        case 1, 2:
+            return 50
+        case 3:
+            return 225
+        default:
+            return 40
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddCellView") as! AddCellView
+            cell.addMessageLabel.text = "Phone - Tap to add"
+            cell.section = section
+            cell.delegate = self
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddCellView") as! AddCellView
+            cell.addMessageLabel.text = "Email - Tap to add"
+            cell.section = section
+            cell.delegate = self
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddCellView") as! AddCellView
+            cell.addMessageLabel.text = "Address - Tap to add"
+            cell.section = section
+            cell.delegate = self
+            return cell
+        default:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return phoneArray.count
+        case 2:
+            return emailArray.count
+        case 3:
+            return addressArray.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ContactInfoTableViewCell.identifier, for: indexPath) as! ContactInfoTableViewCell
+            self.setDOBDatePicker(for: cell.dobTextField)
+            cell.dobTextField.delegate = self
+            cell.firstNameTextField.delegate = self
+            cell.lastNameTextField.delegate = self
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhoneTableViewCell.identifier, for: indexPath) as! PhoneTableViewCell
+            cell.deletePhoneCell = { [weak self] (_) in
+                self?.phoneArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections([indexPath.section], with: .none)
+            }
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmailTableViewCell.identifier, for: indexPath) as! EmailTableViewCell
+            cell.deleteEmailCell = { [weak self] (_) in
+                self?.emailArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections([indexPath.section], with: .none)
+            }
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: AddressTableViewCell.identifier, for: indexPath) as! AddressTableViewCell
+            cell.deleteAddressCell = { [weak self] (_) in
+                self?.addressArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections([indexPath.section], with: .none)
+            }
+            return cell
+        default:
+            return UITableViewCell()
+        }
+    }
 }
