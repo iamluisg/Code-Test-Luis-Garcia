@@ -60,6 +60,25 @@ class CoreDataManager {
         }
     }
     
+    func addPhoneTo(contact: Contact, number: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let phone = Phone(context: context)
+        phone.number = number
+        phone.type = type
+        phone.contact = contact
+        
+        contact.addToPhone(phone)
+        
+        do {
+            try context.save()
+            context.refresh(contact, mergeChanges: true)
+            completion(contact, nil)
+        } catch {
+            completion(nil, error as NSError)
+        }
+    }
+    
     func addPhonesTo(contact: Contact, phones: [String], completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let phoneSet = NSSet()

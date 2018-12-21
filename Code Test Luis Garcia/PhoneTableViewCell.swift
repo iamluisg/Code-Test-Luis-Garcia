@@ -10,14 +10,13 @@ import UIKit
 
 class PhoneTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var phoneTextField: UITextField!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var phoneTypeLabel: UILabel!
     
     var deletePhoneCell: ((UITableViewCell) -> ())?
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     

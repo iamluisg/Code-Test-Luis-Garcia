@@ -45,6 +45,9 @@
 		9CA6BC2F21CC2F3300F39C1A /* AddCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */; };
 		9CA6BC3221CC334B00F39C1A /* ContactInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */; };
 		9CA6BC3321CC334B00F39C1A /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */; };
+		9CDB04C621CD36B800B54B4C /* AddContactPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */; };
+		9CDB04C721CD36B800B54B4C /* AddContactPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */; };
+		9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +91,9 @@
 		9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCellView.xib; sourceTree = "<group>"; };
 		9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
+		9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactPhoneViewController.swift; sourceTree = "<group>"; };
+		9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContactPhoneViewController.xib; sourceTree = "<group>"; };
+		9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,8 @@
 				9C44CF1021CAAF87007F03C2 /* ContactsTableViewCell.xib */,
 				9C44CF1521CADA48007F03C2 /* AddContactViewController.swift */,
 				9C44CF1621CADA48007F03C2 /* AddContactViewController.xib */,
+				9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */,
+				9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */,
 				9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */,
 				9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */,
 				9CA6BC2021CC289C00F39C1A /* EmailTableViewCell.swift */,
@@ -141,6 +149,7 @@
 				9C44CF2421CB3013007F03C2 /* AddContactDetailViewController.xib */,
 				9C44CF1D21CAEB3C007F03C2 /* Validate.swift */,
 				9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */,
+				9CDB04CA21CD5C6D00B54B4C /* Enums */,
 				9C44CF1921CADA58007F03C2 /* Extensions */,
 				9C44CF1A21CADA64007F03C2 /* Custom Views */,
 				9C44CEE621CA9B8C007F03C2 /* Assets.xcassets */,
@@ -193,6 +202,14 @@
 				9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */,
 			);
 			path = "Custom Views";
+			sourceTree = "<group>";
+		};
+		9CDB04CA21CD5C6D00B54B4C /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +280,7 @@
 				9C44CF2621CB3013007F03C2 /* AddContactDetailViewController.xib in Resources */,
 				9CA6BC2B21CC28B500F39C1A /* AddressTableViewCell.xib in Resources */,
 				9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */,
+				9CDB04C721CD36B800B54B4C /* AddContactPhoneViewController.xib in Resources */,
 				9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */,
 				9C44CF1221CAAF87007F03C2 /* ContactsTableViewCell.xib in Resources */,
 			);
@@ -289,9 +307,11 @@
 				9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */,
 				9CA6BC2621CC28AB00F39C1A /* PhoneTableViewCell.swift in Sources */,
 				9C44CF0221CAAA27007F03C2 /* Contact+CoreDataProperties.swift in Sources */,
+				9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */,
 				9CA6BC2D21CC2F2A00F39C1A /* AddCellView.swift in Sources */,
 				9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */,
 				9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */,
+				9CDB04C621CD36B800B54B4C /* AddContactPhoneViewController.swift in Sources */,
 				9C44CEFF21CAAA27007F03C2 /* Phone+CoreDataClass.swift in Sources */,
 				9C44CEF321CA9DEE007F03C2 /* ContactsViewController.swift in Sources */,
 				9C44CF0121CAAA27007F03C2 /* Contact+CoreDataClass.swift in Sources */,

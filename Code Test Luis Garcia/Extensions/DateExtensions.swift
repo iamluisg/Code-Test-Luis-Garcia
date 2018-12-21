@@ -11,8 +11,8 @@ import Foundation
 extension Date {
     func getFormattedStringFromDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
-//        dateFormatter.locale = Locale.current
-        dateFormatter.dateStyle = .short
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .medium
         let displayDate = dateFormatter.string(from: date)
         return displayDate
     }

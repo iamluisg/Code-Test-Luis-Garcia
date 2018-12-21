@@ -115,6 +115,18 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
                 print(x.address)
             }
         }
+        let phones = contact.phone.allObjects
+        for phone in phones {
+            if let p = phone as? Phone {
+                print(p.number)
+            }
+        }
+        let addresses = contact.address.allObjects
+        for address in addresses {
+            if let a = address as? Address {
+                print(a.street)
+            }
+        }
         
     }
     
