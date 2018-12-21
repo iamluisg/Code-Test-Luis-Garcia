@@ -50,7 +50,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="phoneLabel" destination="2me-Q1-s7a" id="NK2-ut-wmp"/>
+                <outlet property="phoneTextField" destination="2me-Q1-s7a" id="bBS-Ww-TnJ"/>
             </connections>
         </tableViewCell>
     </objects>

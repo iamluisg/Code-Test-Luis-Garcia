@@ -34,16 +34,20 @@ class AddContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add Contact"
-//        self.setDOBDatePicker()
         self.registerTableViewCells()
+        self.addDoneButton()
         self.setupKeyboardShowAndHide()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.emailArray.removeAll()
-        self.phoneArray.removeAll()
-        self.addressArray.removeAll()
+    }
+    
+    func addDoneButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                        target: self,
+                                        action: #selector(saveContact(_:)))
+        self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
     //MARK: - View Controller Setup
@@ -106,10 +110,6 @@ class AddContactViewController: UIViewController {
         
     }
     
-    func presentAddDetailsAlert() {
-        
-    }
-    
     //MARK: - User Actions
     @objc func closeDOBPicker() {
         self.dobTextField.text = nil
@@ -124,57 +124,94 @@ class AddContactViewController: UIViewController {
         self.dobTextField.text = Date().getFormattedStringFromDate(date: self.dobPicker.date)
     }
 
-    @IBAction func saveContact(_ sender: Any) {
-        self.activeTextField?.resignFirstResponder()
-        guard let firstName = self.firstNameTextField.text, let lastName = self.lastNameTextField.text else {
-            self.presentAlert(title: "Empty Field", message: "Please fill in both First and Last names to save your contact.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
-            return
-        }
-        guard self.validate(firstName: firstName, lastName: lastName) == true else {
-            return
+    func addEmailValuesTo(contact: Contact) {
+        let rows = self.tableView.numberOfRows(inSection: 2)
+        var emails = [String]()
+        for i in 0..<rows {
+            let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 2)) as! EmailTableViewCell
+            guard let email = cell.emailTextField.text else { continue }
+            emails.append(email)
         }
         
-        var dob: Date? = nil
-        if let _ = self.dobTextField.text {
-            dob = self.dobPicker.date
-        }
-        CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+        CoreDataManager.shared.addEmailsTo(contact: contact, emails: emails) { (contact, error) in
             if error != nil {
-                self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
-            } else {
-                guard let contact = contact else {
-                    print("died in guard")
-                    return
-                }
-                let context = CoreDataManager.shared.persistentContainer.viewContext
-                let email = Email(context: context)
-                email.address = "gogogo@go.com"
-                email.type = "home"
-                email.contact = contact
-                do {
-                    try context.save()
-                } catch {
-                    
-                }
-                NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
-//                self.presentAlert(title: "Successfully Saved", message: "Would you like to add details to your contact?", type: .Alert, actions: [("Not Now", .cancel), ("Yes", .default)], completionHandler: { (response) in
-//                    switch response {
-//                    case 0:
-//                        self.navigationController?.popViewController(animated: true)
-//                        return
-//                    case 1:
-//                        self.addContactDetails()
-//                        return
-//                    default:
-//                        return
-//                    }
-//                } )
+                self.presentAlert(title: "Error", message: "Could not successfully save the email addresses. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+        }
+    }
+    
+    func addPhoneValuesTo(contact: Contact) {
+        let rows = self.tableView.numberOfRows(inSection: 1)
+        var phones = [String]()
+        for i in 0..<rows {
+            let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 1)) as! PhoneTableViewCell
+            guard let phone = cell.phoneTextField.text else { continue }
+            phones.append(phone)
+        }
+        CoreDataManager.shared.addPhonesTo(contact: contact, phones: phones) { (contact, error) in
+            if error != nil {
+                self.presentAlert(title: "Error", message: "Could not successfully save the phone numbers. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+        }
+    }
+    
+    func addAddressValuesTo(contact: Contact) {
+        let rows = self.tableView.numberOfRows(inSection: 3)
+        var addresses: [[String: String]] = [[:]]
+        for i in 0..<rows {
+            let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 3)) as! AddressTableViewCell
+            guard let street = cell.streetTextField.text, let city = cell.cityTextField.text, let state = cell.stateTextField.text, let zip = cell.zipTextField.text else { continue }
+            var address: [String: String] = [:]
+            address["street"] = street
+            if let streetDetail = cell.streetDetailTextField.text {
+                address["streetDetail"] = streetDetail
+            }
+            address["city"] = city
+            address["state"] = state
+            address["zip"] = zip
+            addresses.append(address)
+        }
+        CoreDataManager.shared.addAddressesTo(contact: contact, addresses: addresses) { (contact, error) in
+            if error != nil {
+                self.presentAlert(title: "Error", message: "Could not successfully save the phone numbers. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             }
         }
     }
     
-    func addContactDetails() {
+    @IBAction func saveContact(_ sender: Any) {
+        self.activeTextField?.resignFirstResponder()
         
+        let contactInfoCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! ContactInfoTableViewCell
+        guard let firstName = contactInfoCell.firstNameTextField.text, let lastName = contactInfoCell.lastNameTextField.text else {
+                self.presentAlert(title: "Empty Field", message: "Please fill in both First and Last names to save your contact.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+        }
+        guard self.validate(firstName: firstName, lastName: lastName) == true else {
+            return
+        }
+        var dob: Date? = nil
+        if let _ = contactInfoCell.dobTextField.text {
+            dob = self.dobPicker.date
+        }
+        
+        CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+            if error != nil {
+                self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+            } else {
+                NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+                guard let contact = contact else {
+                    return
+                }
+                self.addEmailValuesTo(contact: contact)
+                self.addPhoneValuesTo(contact: contact)
+                self.addAddressValuesTo(contact: contact)
+                
+            }
+        }
     }
 }
 
@@ -300,6 +337,7 @@ extension AddContactViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PhoneTableViewCell.identifier, for: indexPath) as! PhoneTableViewCell
+            cell.phoneTextField.delegate = self
             cell.deletePhoneCell = { [weak self] (_) in
                 self?.phoneArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -308,6 +346,7 @@ extension AddContactViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmailTableViewCell.identifier, for: indexPath) as! EmailTableViewCell
+            cell.emailTextField.delegate = self
             cell.deleteEmailCell = { [weak self] (_) in
                 self?.emailArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
@@ -316,6 +355,11 @@ extension AddContactViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: AddressTableViewCell.identifier, for: indexPath) as! AddressTableViewCell
+            cell.streetTextField.delegate = self
+            cell.streetDetailTextField.delegate = self
+            cell.cityTextField.delegate = self
+            cell.stateTextField.delegate = self
+            cell.zipTextField.delegate = self
             cell.deleteAddressCell = { [weak self] (_) in
                 self?.addressArray.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)

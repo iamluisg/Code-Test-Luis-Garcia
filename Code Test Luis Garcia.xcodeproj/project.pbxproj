@@ -45,7 +45,6 @@
 		9CA6BC2F21CC2F3300F39C1A /* AddCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */; };
 		9CA6BC3221CC334B00F39C1A /* ContactInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */; };
 		9CA6BC3321CC334B00F39C1A /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */; };
-		9CA6BC3521CC536300F39C1A /* AddCellFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3421CC536300F39C1A /* AddCellFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,7 +88,6 @@
 		9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCellView.xib; sourceTree = "<group>"; };
 		9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
-		9CA6BC3421CC536300F39C1A /* AddCellFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCellFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +134,6 @@
 				9CA6BC2021CC289C00F39C1A /* EmailTableViewCell.swift */,
 				9CA6BC2121CC289C00F39C1A /* EmailTableViewCell.xib */,
 				9CA6BC2421CC28AB00F39C1A /* PhoneTableViewCell.swift */,
-				9CA6BC3421CC536300F39C1A /* AddCellFooterView.swift */,
 				9CA6BC2521CC28AB00F39C1A /* PhoneTableViewCell.xib */,
 				9CA6BC2821CC28B500F39C1A /* AddressTableViewCell.swift */,
 				9CA6BC2921CC28B500F39C1A /* AddressTableViewCell.xib */,
@@ -299,7 +296,6 @@
 				9C44CEF321CA9DEE007F03C2 /* ContactsViewController.swift in Sources */,
 				9C44CF0121CAAA27007F03C2 /* Contact+CoreDataClass.swift in Sources */,
 				9C44CF1721CADA48007F03C2 /* AddContactViewController.swift in Sources */,
-				9CA6BC3521CC536300F39C1A /* AddCellFooterView.swift in Sources */,
 				9C44CF1E21CAEB3C007F03C2 /* Validate.swift in Sources */,
 				9CA6BC3221CC334B00F39C1A /* ContactInfoTableViewCell.swift in Sources */,
 				9C44CF0021CAAA27007F03C2 /* Phone+CoreDataProperties.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 class EmailTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var emailLabel: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     
     var deleteEmailCell: ((UITableViewCell) -> ())?
     

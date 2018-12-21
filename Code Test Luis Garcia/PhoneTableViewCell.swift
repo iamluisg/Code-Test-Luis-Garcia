@@ -10,7 +10,7 @@ import UIKit
 
 class PhoneTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var phoneLabel: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
     
     var deletePhoneCell: ((UITableViewCell) -> ())?
     

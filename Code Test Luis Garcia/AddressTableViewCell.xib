@@ -86,11 +86,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="cityLabel" destination="hxl-tj-SYV" id="p03-mb-6ch"/>
-                <outlet property="stateLabel" destination="qPg-hu-daL" id="K5c-Xf-nq8"/>
-                <outlet property="streetDetailLabel" destination="Bdi-zf-8AF" id="Tn8-sI-7b7"/>
-                <outlet property="streetLabel" destination="CqF-PS-Pze" id="Lin-9u-hVc"/>
-                <outlet property="zipLabel" destination="uhG-br-Elw" id="y4h-OA-SvL"/>
+                <outlet property="cityTextField" destination="hxl-tj-SYV" id="lqO-Xv-TA8"/>
+                <outlet property="stateTextField" destination="qPg-hu-daL" id="1Te-Z7-dKb"/>
+                <outlet property="streetDetailTextField" destination="Bdi-zf-8AF" id="Jmp-nd-gBr"/>
+                <outlet property="streetTextField" destination="CqF-PS-Pze" id="7fq-7W-EiC"/>
+                <outlet property="zipTextField" destination="uhG-br-Elw" id="Ox7-2b-gNf"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="138.98050974512745"/>
         </tableViewCell>
