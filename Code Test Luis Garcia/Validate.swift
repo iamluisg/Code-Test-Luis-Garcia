@@ -22,7 +22,6 @@ struct Validate {
         return false
     }
     
-    
     /*
      Phone Validator:
      - United States phone number validaton only
@@ -45,5 +44,21 @@ struct Validate {
         }
         
         return false
+    }
+    
+    /*
+     Email Validator:
+     - Checks for an email with an alphanumeric name
+     - Followed by an "@" symbol
+     - Followed by an alphanumeric domain name
+     - Followed by a "." symbol
+     - Followed by a top level domain name (must be at least 2 characters and no longer than 12 characters)
+     */
+    static func isValidEmail(_ email:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,12}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluate(with: email)
+        
+        return result
     }
 }

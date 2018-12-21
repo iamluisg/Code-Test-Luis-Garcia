@@ -57,7 +57,11 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIw-Td-i08">
-                    <rect key="frame" x="16" y="331" width="343" height="33"/>
+                    <rect key="frame" x="100" y="331" width="175" height="33"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="175" id="t32-Lt-JrM"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Save"/>
                     <connections>
@@ -71,7 +75,7 @@
                 <constraint firstItem="J1q-Rb-MvX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="1ka-YI-BtV"/>
                 <constraint firstItem="J1q-Rb-MvX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="1qi-oc-lTi"/>
                 <constraint firstItem="sIw-Td-i08" firstAttribute="top" secondItem="2jw-De-Mcc" secondAttribute="bottom" constant="40" id="87p-TG-M9u"/>
-                <constraint firstItem="sIw-Td-i08" firstAttribute="trailing" secondItem="2jw-De-Mcc" secondAttribute="trailing" id="JpC-wC-97S"/>
+                <constraint firstItem="sIw-Td-i08" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="GBz-3X-mQt"/>
                 <constraint firstItem="2jw-De-Mcc" firstAttribute="trailing" secondItem="4kS-de-bN2" secondAttribute="trailing" id="MrV-L9-Yv7"/>
                 <constraint firstItem="4kS-de-bN2" firstAttribute="top" secondItem="NCj-3H-egf" secondAttribute="bottom" constant="25" id="NhJ-Lm-QsU"/>
                 <constraint firstItem="NCj-3H-egf" firstAttribute="top" secondItem="J1q-Rb-MvX" secondAttribute="bottom" constant="50" id="StS-5D-dbE"/>
@@ -81,7 +85,6 @@
                 <constraint firstItem="NCj-3H-egf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ija-hX-s8T"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NCj-3H-egf" secondAttribute="trailing" constant="16" id="lt3-Cy-LHe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J1q-Rb-MvX" secondAttribute="trailing" constant="16" id="obf-4d-cR9"/>
-                <constraint firstItem="sIw-Td-i08" firstAttribute="leading" secondItem="2jw-De-Mcc" secondAttribute="leading" id="vNv-pc-yle"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.40000000000001" y="144.3778110944528"/>

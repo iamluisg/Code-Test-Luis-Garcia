@@ -13,7 +13,7 @@ class AddContactPhoneViewController: UIViewController {
     @IBOutlet weak var contactNameLabel: UILabel!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var phoneTypeTextField: UITextField!
+    @IBOutlet weak var contactTypeTextField: UITextField!
     
     private var contactInfoTypePickerView = UIPickerView()
     private var contactInfoTypes = ContactInfoType.allValues
@@ -42,6 +42,7 @@ class AddContactPhoneViewController: UIViewController {
         phoneNumbers.sort(by: {$0.type < $1.type})
         
         self.setTypeTextFieldPicker()
+        self.setNavigationButton()
     }
     
     func refreshPageWith(contact: Contact) {
@@ -57,7 +58,18 @@ class AddContactPhoneViewController: UIViewController {
     func setTypeTextFieldPicker() {
         self.contactInfoTypePickerView.delegate = self
         self.contactInfoTypePickerView.dataSource = self
-        self.phoneTypeTextField.inputView = self.contactInfoTypePickerView
+        self.contactTypeTextField.inputView = self.contactInfoTypePickerView
+    }
+    
+    func setNavigationButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                        target: self,
+                                        action: #selector(completeAddContact))
+        self.navigationItem.setRightBarButton(addButton, animated: false)
+    }
+    
+    @objc func completeAddContact() {
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func validateNumber(number: String) -> Bool {
@@ -72,8 +84,7 @@ class AddContactPhoneViewController: UIViewController {
     //MARK - User actions
     @IBAction func savePhoneNumber(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
-        guard let phoneNumber = self.phoneTextField.text, let type = self.phoneTypeTextField.text else {
-            
+        guard let phoneNumber = self.phoneTextField.text, let type = self.contactTypeTextField.text else {
             return
         }
         if Validate.isStringEmpty(type) {
@@ -89,7 +100,7 @@ class AddContactPhoneViewController: UIViewController {
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
-                self?.phoneTypeTextField.text = nil
+                self?.contactTypeTextField.text = nil
                 self?.phoneTextField.text = nil
                 guard let contact = contact else { return }
                 self?.refreshPageWith(contact: contact)
@@ -97,8 +108,10 @@ class AddContactPhoneViewController: UIViewController {
         }
     }
     
-    @IBAction func skipPage(_ sender: Any) {
-        
+    @IBAction func nextPage(_ sender: Any) {
+        self.phoneTextField.text = nil
+        self.contactTypeTextField.text = nil
+        self.navigationController?.pushViewController(AddContactEmailViewController(contact: self.contact), animated: true)
     }
 
 }
@@ -138,9 +151,9 @@ extension AddContactPhoneViewController: UIPickerViewDataSource, UIPickerViewDel
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if self.contactInfoTypes[row] == ContactInfoType.empty {
-            self.phoneTypeTextField.text = nil
+            self.contactTypeTextField.text = nil
         } else {
-            self.phoneTypeTextField.text = contactInfoTypes[row].rawValue
+            self.contactTypeTextField.text = contactInfoTypes[row].rawValue
         }
     }
 }

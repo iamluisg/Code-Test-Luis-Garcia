@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmailTableViewCell" id="KGk-i7-Jjw" customClass="EmailTableViewCell" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvQ-Ia-7Gu">
-                        <rect key="frame" x="5" y="7.5" width="35" height="35"/>
+                        <rect key="frame" x="5" y="27.5" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="h1O-En-vcl"/>
                             <constraint firstAttribute="width" constant="35" id="qiH-V9-Txi"/>
@@ -33,24 +33,34 @@
                             <action selector="deleteEmailCell:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="V9Z-XI-hBM"/>
                         </connections>
                     </button>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fsp-Fa-6kD">
-                        <rect key="frame" x="48" y="10" width="256" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UmJ-lW-l4S">
+                        <rect key="frame" x="48" y="19.5" width="256" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkc-9y-ey7">
+                        <rect key="frame" x="48" y="49.5" width="256" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fsp-Fa-6kD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="914-cK-HZO"/>
-                    <constraint firstAttribute="trailing" secondItem="fsp-Fa-6kD" secondAttribute="trailing" constant="16" id="ETp-F9-CaL"/>
+                    <constraint firstItem="UmJ-lW-l4S" firstAttribute="top" secondItem="gvQ-Ia-7Gu" secondAttribute="top" constant="-8" id="2yO-w8-hk1"/>
+                    <constraint firstItem="Gkc-9y-ey7" firstAttribute="leading" secondItem="UmJ-lW-l4S" secondAttribute="leading" id="8Wt-in-scc"/>
                     <constraint firstItem="gvQ-Ia-7Gu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="GEG-I3-BTr"/>
                     <constraint firstItem="gvQ-Ia-7Gu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="VKs-Gl-7Bt"/>
-                    <constraint firstItem="fsp-Fa-6kD" firstAttribute="leading" secondItem="gvQ-Ia-7Gu" secondAttribute="trailing" constant="8" id="sCT-0K-VCL"/>
+                    <constraint firstItem="UmJ-lW-l4S" firstAttribute="leading" secondItem="gvQ-Ia-7Gu" secondAttribute="trailing" constant="8" id="nO5-ml-gsU"/>
+                    <constraint firstItem="Gkc-9y-ey7" firstAttribute="bottom" secondItem="gvQ-Ia-7Gu" secondAttribute="bottom" constant="8" id="psb-tB-37E"/>
+                    <constraint firstItem="Gkc-9y-ey7" firstAttribute="trailing" secondItem="UmJ-lW-l4S" secondAttribute="trailing" id="pxl-OZ-D1J"/>
+                    <constraint firstAttribute="trailing" secondItem="UmJ-lW-l4S" secondAttribute="trailing" constant="16" id="veY-lL-ah0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="emailTextField" destination="fsp-Fa-6kD" id="VeT-AG-iBM"/>
+                <outlet property="emailTextField" destination="UmJ-lW-l4S" id="jF2-5W-C1a"/>
+                <outlet property="typeTextField" destination="Gkc-9y-ey7" id="p84-yk-uwQ"/>
             </connections>
             <point key="canvasLocation" x="124.8" y="71.064467766116948"/>
         </tableViewCell>

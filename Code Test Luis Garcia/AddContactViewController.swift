@@ -108,6 +108,9 @@ class AddContactViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
                 return
             case 1:
+                self.firstNameTextField.text = nil
+                self.lastNameTextField.text = nil
+                self.dobTextField.text = nil
                 self.navigationController?.pushViewController(AddContactPhoneViewController(contact: contact), animated: true)
                 return
             default:

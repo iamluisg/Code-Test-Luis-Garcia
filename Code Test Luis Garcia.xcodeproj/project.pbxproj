@@ -48,6 +48,10 @@
 		9CDB04C621CD36B800B54B4C /* AddContactPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */; };
 		9CDB04C721CD36B800B54B4C /* AddContactPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */; };
 		9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */; };
+		9CDB04CF21CD747600B54B4C /* AddContactEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04CD21CD747600B54B4C /* AddContactEmailViewController.swift */; };
+		9CDB04D021CD747600B54B4C /* AddContactEmailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB04CE21CD747600B54B4C /* AddContactEmailViewController.xib */; };
+		9CDB04D321CD8BB000B54B4C /* AddContactAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04D121CD8BB000B54B4C /* AddContactAddressViewController.swift */; };
+		9CDB04D421CD8BB000B54B4C /* AddContactAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CDB04D221CD8BB000B54B4C /* AddContactAddressViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +98,10 @@
 		9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactPhoneViewController.swift; sourceTree = "<group>"; };
 		9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContactPhoneViewController.xib; sourceTree = "<group>"; };
 		9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoType.swift; sourceTree = "<group>"; };
+		9CDB04CD21CD747600B54B4C /* AddContactEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactEmailViewController.swift; sourceTree = "<group>"; };
+		9CDB04CE21CD747600B54B4C /* AddContactEmailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContactEmailViewController.xib; sourceTree = "<group>"; };
+		9CDB04D121CD8BB000B54B4C /* AddContactAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactAddressViewController.swift; sourceTree = "<group>"; };
+		9CDB04D221CD8BB000B54B4C /* AddContactAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddContactAddressViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +145,10 @@
 				9C44CF1621CADA48007F03C2 /* AddContactViewController.xib */,
 				9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */,
 				9CDB04C521CD36B800B54B4C /* AddContactPhoneViewController.xib */,
+				9CDB04CD21CD747600B54B4C /* AddContactEmailViewController.swift */,
+				9CDB04CE21CD747600B54B4C /* AddContactEmailViewController.xib */,
+				9CDB04D121CD8BB000B54B4C /* AddContactAddressViewController.swift */,
+				9CDB04D221CD8BB000B54B4C /* AddContactAddressViewController.xib */,
 				9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */,
 				9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */,
 				9CA6BC2021CC289C00F39C1A /* EmailTableViewCell.swift */,
@@ -270,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CDB04D421CD8BB000B54B4C /* AddContactAddressViewController.xib in Resources */,
 				9CA6BC3321CC334B00F39C1A /* ContactInfoTableViewCell.xib in Resources */,
 				9C44CEEA21CA9B8C007F03C2 /* LaunchScreen.storyboard in Resources */,
 				9C44CF1821CADA48007F03C2 /* AddContactViewController.xib in Resources */,
@@ -282,6 +295,7 @@
 				9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */,
 				9CDB04C721CD36B800B54B4C /* AddContactPhoneViewController.xib in Resources */,
 				9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */,
+				9CDB04D021CD747600B54B4C /* AddContactEmailViewController.xib in Resources */,
 				9C44CF1221CAAF87007F03C2 /* ContactsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CDB04D321CD8BB000B54B4C /* AddContactAddressViewController.swift in Sources */,
 				9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */,
 				9C44CF2221CB0289007F03C2 /* NotificationCenterManager.swift in Sources */,
 				9C44CF1C21CAE57B007F03C2 /* DateExtensions.swift in Sources */,
@@ -302,6 +317,7 @@
 				9CA6BC2A21CC28B500F39C1A /* AddressTableViewCell.swift in Sources */,
 				9C44CEE521CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld in Sources */,
 				9C44CF0721CAAABF007F03C2 /* Address+CoreDataProperties.swift in Sources */,
+				9CDB04CF21CD747600B54B4C /* AddContactEmailViewController.swift in Sources */,
 				9C44CF0421CAAA27007F03C2 /* Email+CoreDataProperties.swift in Sources */,
 				9C44CF2021CAECF3007F03C2 /* UIViewControllerExtensions.swift in Sources */,
 				9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */,

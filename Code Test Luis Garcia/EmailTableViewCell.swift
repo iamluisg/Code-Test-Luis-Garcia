@@ -9,8 +9,9 @@
 import UIKit
 
 class EmailTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var emailTextField: UILabel!
+    @IBOutlet weak var typeTextField: UILabel!
     
     var deleteEmailCell: ((UITableViewCell) -> ())?
     
@@ -18,10 +19,9 @@ class EmailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     @IBAction func deleteEmailCell(_ sender: Any) {
         deleteEmailCell?(self)
     }
-    
-    
+
 }

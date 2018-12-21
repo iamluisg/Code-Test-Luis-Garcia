@@ -13,8 +13,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContactPhoneViewController" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
             <connections>
                 <outlet property="contactNameLabel" destination="gXN-vG-Dme" id="wty-iK-bQ8"/>
+                <outlet property="contactTypeTextField" destination="lUa-US-LkC" id="fku-a2-1zA"/>
                 <outlet property="phoneTextField" destination="ZH0-5X-ALn" id="iRg-L3-gal"/>
-                <outlet property="phoneTypeTextField" destination="lUa-US-LkC" id="yRY-3K-9jL"/>
                 <outlet property="tableView" destination="Yjk-Cc-kkO" id="dVg-0h-P6g"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -49,11 +49,11 @@
                     </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCS-j5-x7p">
-                    <rect key="frame" x="100" y="186" width="175" height="40"/>
+                    <rect key="frame" x="100" y="186" width="175" height="35"/>
                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="175" id="Ywr-v7-wMP"/>
-                        <constraint firstAttribute="height" constant="40" id="tVB-ki-uer"/>
+                        <constraint firstAttribute="height" constant="35" id="tVB-ki-uer"/>
                     </constraints>
                     <state key="normal" title="Save"/>
                     <connections>
@@ -61,18 +61,18 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ay-4n-8h4">
-                    <rect key="frame" x="100" y="246" width="175" height="40"/>
+                    <rect key="frame" x="100" y="241" width="175" height="35"/>
                     <color key="backgroundColor" red="0.59999999999999998" green="0.63137254899999995" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="xQC-o8-DXN"/>
+                        <constraint firstAttribute="height" constant="35" id="xQC-o8-DXN"/>
                     </constraints>
                     <state key="normal" title="Next"/>
                     <connections>
-                        <action selector="skipPage:" destination="-1" eventType="touchUpInside" id="noK-7Z-mRC"/>
+                        <action selector="nextPage:" destination="-1" eventType="touchUpInside" id="cYm-ec-tu5"/>
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yjk-Cc-kkO">
-                    <rect key="frame" x="16" y="310" width="343" height="357"/>
+                    <rect key="frame" x="16" y="300" width="343" height="367"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="sZJ-So-q7Y"/>

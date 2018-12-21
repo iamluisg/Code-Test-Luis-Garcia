@@ -10,11 +10,11 @@ import UIKit
 
 class AddressTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var streetTextField: UITextField!
-    @IBOutlet weak var streetDetailTextField: UITextField!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var stateTextField: UITextField!
-    @IBOutlet weak var zipTextField: UITextField!
+    @IBOutlet weak var streetTextField: UILabel!
+    @IBOutlet weak var streetDetailTextField: UILabel!
+    @IBOutlet weak var cityTextField: UILabel!
+    @IBOutlet weak var stateTextField: UILabel!
+    @IBOutlet weak var zipTextField: UILabel!
     
     var deleteAddressCell: ((UITableViewCell) -> ())?
     

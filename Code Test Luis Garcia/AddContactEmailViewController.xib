@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContactEmailViewController" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
+            <connections>
+                <outlet property="emailTextField" destination="ub1-sP-DEm" id="law-AA-3gh"/>
+                <outlet property="emailTypeTextField" destination="eVK-YB-LuO" id="heH-ht-L2b"/>
+                <outlet property="nameLabel" destination="uli-hB-bcz" id="P6p-td-M4z"/>
+                <outlet property="tableView" destination="Hgc-SP-B1c" id="SPa-FG-zs8"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uli-hB-bcz">
+                    <rect key="frame" x="16" y="50" width="343" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email@email.com" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ub1-sP-DEm">
+                    <rect key="frame" x="16" y="94" width="343" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="gwb-nQ-11a"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Type" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eVK-YB-LuO">
+                    <rect key="frame" x="16" y="139" width="343" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="OkN-JT-IQz"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHw-pS-R1C">
+                    <rect key="frame" x="100" y="186" width="175" height="40"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Khc-tM-3AM"/>
+                        <constraint firstAttribute="width" constant="175" id="xbA-RF-PZ1"/>
+                    </constraints>
+                    <state key="normal" title="Save"/>
+                    <connections>
+                        <action selector="saveEmailAddress:" destination="-1" eventType="touchUpInside" id="r9A-Of-5dj"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrm-aL-BBG">
+                    <rect key="frame" x="100" y="246" width="175" height="40"/>
+                    <color key="backgroundColor" red="0.59999999999999998" green="0.63137254899999995" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="175" id="4Uc-jO-g6n"/>
+                        <constraint firstAttribute="height" constant="40" id="CZE-j5-xkG"/>
+                    </constraints>
+                    <state key="normal" title="Next"/>
+                    <connections>
+                        <action selector="nextPage:" destination="-1" eventType="touchUpInside" id="p9d-aQ-pxj"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hgc-SP-B1c">
+                    <rect key="frame" x="16" y="310" width="343" height="357"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="DXE-v0-Swb"/>
+                        <outlet property="delegate" destination="-1" id="aSS-kz-wKZ"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ub1-sP-DEm" secondAttribute="trailing" constant="16" id="2Gf-Me-B65"/>
+                <constraint firstItem="eVK-YB-LuO" firstAttribute="top" secondItem="ub1-sP-DEm" secondAttribute="bottom" constant="15" id="3Tg-ty-gRf"/>
+                <constraint firstItem="PHw-pS-R1C" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="95L-Wo-Rpb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uli-hB-bcz" secondAttribute="trailing" constant="16" id="9zz-BH-8pw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hgc-SP-B1c" secondAttribute="trailing" constant="16" id="AZA-5I-3kK"/>
+                <constraint firstItem="uli-hB-bcz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="CnL-Zz-PQm"/>
+                <constraint firstItem="ub1-sP-DEm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Cz5-Al-FbY"/>
+                <constraint firstItem="PHw-pS-R1C" firstAttribute="top" secondItem="eVK-YB-LuO" secondAttribute="bottom" constant="17" id="EAB-MN-of1"/>
+                <constraint firstItem="ub1-sP-DEm" firstAttribute="top" secondItem="uli-hB-bcz" secondAttribute="bottom" constant="20" id="Fim-QK-Wjs"/>
+                <constraint firstItem="Hgc-SP-B1c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="HeT-FQ-cBb"/>
+                <constraint firstItem="uli-hB-bcz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="M9z-eg-vgV"/>
+                <constraint firstItem="eVK-YB-LuO" firstAttribute="leading" secondItem="ub1-sP-DEm" secondAttribute="leading" id="Ocd-8A-YoS"/>
+                <constraint firstItem="Zrm-aL-BBG" firstAttribute="trailing" secondItem="PHw-pS-R1C" secondAttribute="trailing" id="Pi2-Dm-bOD"/>
+                <constraint firstItem="eVK-YB-LuO" firstAttribute="trailing" secondItem="ub1-sP-DEm" secondAttribute="trailing" id="Qot-ad-u2z"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Hgc-SP-B1c" secondAttribute="bottom" id="eUV-8w-IbY"/>
+                <constraint firstItem="Hgc-SP-B1c" firstAttribute="top" secondItem="Zrm-aL-BBG" secondAttribute="bottom" constant="24" id="p2e-AB-vbw"/>
+                <constraint firstItem="Zrm-aL-BBG" firstAttribute="leading" secondItem="PHw-pS-R1C" secondAttribute="leading" id="rae-fG-ZVq"/>
+                <constraint firstItem="Zrm-aL-BBG" firstAttribute="top" secondItem="PHw-pS-R1C" secondAttribute="bottom" constant="20" id="xQc-Ov-hOh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="128.18590704647679"/>
+        </view>
+    </objects>
+</document>

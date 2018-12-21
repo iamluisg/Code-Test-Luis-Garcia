@@ -29,12 +29,6 @@ class ContactsViewController: UIViewController {
             self?.fetchContacts()
             self?.contactsTableView.reloadData()
         }
-        
-        
-//        NotificationCenter.default.addObserver(for: NotificationCenter.refreshContactList, object: nil, queue: nil) { [weak self] in
-//            self?.fetchContacts()
-//            self?.contactsTableView.reloadData()
-//        }
     }
     
     deinit {

@@ -60,6 +60,25 @@ class CoreDataManager {
         }
     }
     
+    func addEmailTo(contact: Contact, address: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let email = Email(context: context)
+        email.address = address
+        email.type = type
+        email.contact = contact
+        
+        contact.addToEmail(email)
+        
+        do {
+            try context.save()
+            context.refresh(contact, mergeChanges: true)
+            completion(contact, nil)
+        } catch {
+            completion(nil, error as NSError)
+        }
+    }
+    
     func addPhoneTo(contact: Contact, number: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
@@ -92,6 +111,32 @@ class CoreDataManager {
         contact.addToPhone(phoneSet)
         do {
             try context.save()
+            completion(contact, nil)
+        } catch {
+            completion(nil, error as NSError)
+        }
+    }
+    
+    func addAddressTo(contact: Contact, street: String, streetDetail: String?, city: String, state: String, zip: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let address = Address(context: context)
+        address.street = street
+        if let streetDetail = streetDetail {
+            address.streetDetail = streetDetail
+        }
+        address.city = city
+        address.state = state
+        address.zip = zip
+        address.type = type
+        address.contact = contact
+        address.country = "USA"
+        
+        contact.addToAddress(address)
+        
+        do {
+            try context.save()
+            context.refresh(contact, mergeChanges: true)
             completion(contact, nil)
         } catch {
             completion(nil, error as NSError)
