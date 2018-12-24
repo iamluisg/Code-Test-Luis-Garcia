@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactsViewController" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
             <connections>
                 <outlet property="contactsTableView" destination="yJa-y7-ub8" id="kAZ-iF-MLx"/>
+                <outlet property="searchBar" destination="cS3-72-zvd" id="pzf-vW-Zxu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,8 +22,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cS3-72-zvd">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Yf2-XL-PBj"/>
+                    </connections>
+                </searchBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="65" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yJa-y7-ub8">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                    <rect key="frame" x="0.0" y="56" width="375" height="547"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="l4U-oB-vee"/>
@@ -33,9 +41,12 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="yJa-y7-ub8" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Ecc-HU-DyC"/>
-                <constraint firstItem="yJa-y7-ub8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PB1-ao-siR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cS3-72-zvd" secondAttribute="trailing" id="Mvs-bo-0g3"/>
                 <constraint firstItem="yJa-y7-ub8" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="eZl-Il-yKT"/>
+                <constraint firstItem="cS3-72-zvd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="g9L-cX-LZz"/>
+                <constraint firstItem="yJa-y7-ub8" firstAttribute="top" secondItem="cS3-72-zvd" secondAttribute="bottom" id="ikY-Qp-2NF"/>
                 <constraint firstItem="yJa-y7-ub8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jzi-4Y-CUH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="cS3-72-zvd" secondAttribute="top" id="tp7-4b-sjE"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

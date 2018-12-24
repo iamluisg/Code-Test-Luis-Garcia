@@ -41,25 +41,6 @@ class CoreDataManager {
         }
     }
     
-    func addEmailsTo(contact: Contact, emails: [String], completion: @escaping (Contact?, NSError?) -> ()) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let emailSet = NSSet()
-        for address in emails {
-            let email = Email(context: context)
-            email.address = address
-            email.type = "home"
-            email.contact = contact
-            emailSet.adding(email)
-        }
-        contact.addToEmail(emailSet)
-        do {
-            try context.save()
-            completion(contact, nil)
-        } catch {
-            completion(nil, error as NSError)
-        }
-    }
-    
     func addEmailTo(contact: Contact, address: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
@@ -98,25 +79,6 @@ class CoreDataManager {
         }
     }
     
-    func addPhonesTo(contact: Contact, phones: [String], completion: @escaping (Contact?, NSError?) -> ()) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        let phoneSet = NSSet()
-        for number in phones {
-            let phone = Phone(context: context)
-            phone.number = number
-            phone.type = "home"
-            phone.contact = contact
-            phoneSet.adding(phone)
-        }
-        contact.addToPhone(phoneSet)
-        do {
-            try context.save()
-            completion(contact, nil)
-        } catch {
-            completion(nil, error as NSError)
-        }
-    }
-    
     func addAddressTo(contact: Contact, street: String, streetDetail: String?, city: String, state: String, zip: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
@@ -143,35 +105,9 @@ class CoreDataManager {
         }
     }
     
-    func addAddressesTo(contact: Contact, addresses: [[String: String]], completion: @escaping (Contact?, NSError?) -> ()) {
+    func deleteNSManagedObject(object: NSManagedObject, completion: @escaping(NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
-        let addressSet = NSSet()
-        for address in addresses {
-            let addressContext = Address(context: context)
-            guard let street = address["street"], let city = address["city"], let state = address["state"], let zip = address["zip"] else { continue }
-            if let streetDetail = address["streetDetail"] {
-                addressContext.streetDetail = streetDetail
-            }
-            addressContext.street = street
-            addressContext.city = city
-            addressContext.state = state
-            addressContext.zip = zip
-            addressContext.type = "home"
-            addressContext.contact = contact
-            addressSet.adding(addressContext)
-        }
-        contact.addToAddress(addressSet)
-        do {
-            try context.save()
-            completion(contact, nil)
-        } catch {
-            completion(nil, error as NSError)
-        }
-    }
-    
-    func deleteContact(contact: Contact, completion: @escaping (NSError?) -> ()) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        context.delete(contact)
+        context.delete(object)
         do {
             try context.save()
             completion(nil)

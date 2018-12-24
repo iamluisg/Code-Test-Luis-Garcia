@@ -101,14 +101,22 @@ class AddContactEmailViewController: UIViewController {
             } else {
                 self?.emailTypeTextField.text = nil
                 self?.emailTextField.text = nil
+                self?.contactInfoTypePickerView.selectRow(0, inComponent: 0, animated: false)
                 guard let contact = contact else { return }
                 self?.refreshPageWith(contact: contact)
             }
         }
     }
     
-    func deleteEmail(email: Email) {
-        
+    func deleteEmail(object: Email, at indexPath: IndexPath) {
+        CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
+            if error != nil {
+                self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            self?.emailObjects.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     @IBAction func nextPage(_ sender: Any) {
@@ -129,7 +137,7 @@ extension AddContactEmailViewController: UITableViewDataSource, UITableViewDeleg
         cell.typeTextField.text = emailObject.type
         
         cell.deleteEmailCell = { [weak self] cell in
-            self?.deleteEmail(email: emailObject)
+            self?.deleteEmail(object: emailObject, at: indexPath)
         }
         return cell
     }

@@ -100,12 +100,23 @@ class AddContactAddressViewController: UIViewController {
                 self?.stateTextField.text = nil
                 self?.zipTextField.text = nil
                 self?.typeTextField.text = nil
+                self?.contactInfoTypePickerView.selectRow(0, inComponent: 0, animated: false)
                 guard let contact = contact else { return }
                 self?.refreshPageWith(contact: contact)
             }
         }
     }
     
+    func deleteAddress(object: Address, at indexPath: IndexPath) {
+        CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
+            if error != nil {
+                self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            self?.addressObjects.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 
@@ -123,6 +134,11 @@ extension AddContactAddressViewController: UITableViewDataSource, UITableViewDel
         cell.cityTextField.text = addressObject.city
         cell.stateTextField.text = addressObject.state
         cell.zipTextField.text = addressObject.zip
+        cell.addressTypeLabel.text = addressObject.type
+        
+        cell.deleteAddressCell = { [weak self] cell in
+            self?.deleteAddress(object: addressObject, at: indexPath)
+        }
         
         return cell
     }

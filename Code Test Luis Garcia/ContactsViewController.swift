@@ -12,11 +12,13 @@ import CoreData
 class ContactsViewController: UIViewController {
 
     @IBOutlet weak var contactsTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private lazy var emptyStateView: EmptyStateView? = nil
     private let context = CoreDataManager.shared.persistentContainer.viewContext
     private var fetchedContacts: NSFetchedResultsController<Contact>!
-    
+    private var isFiltered = false
+    private var query = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +46,14 @@ class ContactsViewController: UIViewController {
     
     func fetchContacts() {
         let request = Contact.fetchRequest() as NSFetchRequest<Contact>
-        
+        if !query.isEmpty {
+            request.predicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
+        }
         let sort = NSSortDescriptor(key: #keyPath(Contact.lastName), ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
         request.sortDescriptors = [sort]
         do {
             self.fetchedContacts = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
+            self.fetchedContacts.delegate = self
             try self.fetchedContacts.performFetch()
         } catch {
             self.presentAlert(title: "Error", message: "Could not successfully retrieve your contacts. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -58,6 +63,15 @@ class ContactsViewController: UIViewController {
     //MARK: - User Actions
     @objc func addContact() {
         self.navigationController?.pushViewController(AddContactViewController(), animated: true)
+    }
+    
+    func deleteContact(object: Contact, at indexPath: IndexPath) {
+        CoreDataManager.shared.deleteNSManagedObject(object: object) { (error) in
+            if error != nil {
+                self.presentAlert(title: "Error", message: "Could not successfully delete your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+        }
     }
 
 }
@@ -71,7 +85,11 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let objs = fetchedContacts.fetchedObjects else { return 0 }
         if objs.count == 0 {
-            self.addEmptyStateView(tableView, with: "You currently have no contacts. Please add contacts by tapping on the plus button above to view them here.")
+            if self.isFiltered {
+                self.addEmptyStateView(tableView, with: "You have no contacts that match your search. Please try a different search.")
+            } else {
+                self.addEmptyStateView(tableView, with: "You currently have no contacts. Please add contacts by tapping on the plus button above to view them here.")
+            }
             return 0
         } else {
             self.removeEmptyStateViewFrom(tableView)
@@ -90,18 +108,12 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let contact = self.fetchedContacts.object(at: indexPath)
-            CoreDataManager.shared.deleteContact(contact: contact) { (error) in
-                if error != nil {
-                    self.presentAlert(title: "Error", message: "Could not successfully delete your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
-                    return
-                }
-                self.fetchContacts()
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            self.deleteContact(object: contact, at: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let contact = self.fetchedContacts.object(at: indexPath)
         let emails = contact.email.allObjects
         for email in emails {
@@ -121,7 +133,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
                 print(a.street)
             }
         }
-        
     }
     
     func addEmptyStateView(_ tableView: UITableView, with message: String) {
@@ -140,4 +151,43 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
+}
+
+extension ContactsViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else {
+            return
+        }
+        self.isFiltered = true
+        self.query = text
+        self.fetchContacts()
+        searchBar.resignFirstResponder()
+        self.contactsTableView.reloadData()
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.isFiltered = false
+        query = ""
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        self.fetchContacts()
+        self.contactsTableView.reloadData()
+    }
+}
+
+extension ContactsViewController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        let index = indexPath ?? (newIndexPath ?? nil)
+        guard let cellIndex = index else {
+            return
+        }
+        
+        switch type {
+        case .delete:
+            self.contactsTableView.deleteRows(at: [cellIndex], with: .fade)
+        default:
+            return
+        }
+    }
 }

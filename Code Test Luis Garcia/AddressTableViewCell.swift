@@ -16,6 +16,7 @@ class AddressTableViewCell: UITableViewCell {
     @IBOutlet weak var stateTextField: UILabel!
     @IBOutlet weak var zipTextField: UILabel!
     
+    @IBOutlet weak var addressTypeLabel: UILabel!
     var deleteAddressCell: ((UITableViewCell) -> ())?
     
     override func awakeFromNib() {

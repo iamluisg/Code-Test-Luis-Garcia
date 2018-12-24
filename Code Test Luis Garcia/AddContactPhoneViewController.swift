@@ -102,9 +102,21 @@ class AddContactPhoneViewController: UIViewController {
             } else {
                 self?.contactTypeTextField.text = nil
                 self?.phoneTextField.text = nil
+                self?.contactInfoTypePickerView.selectRow(0, inComponent: 0, animated: false)
                 guard let contact = contact else { return }
                 self?.refreshPageWith(contact: contact)
             }
+        }
+    }
+    
+    func deletePhoneNumber(object: Phone, at indexPath: IndexPath) {
+        CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
+            if error != nil {
+                self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            self?.phoneObjects.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
