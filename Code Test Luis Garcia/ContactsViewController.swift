@@ -133,6 +133,8 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
                 print(a.street)
             }
         }
+        
+        self.navigationController?.pushViewController(ContactDetailViewController(contact: contact), animated: true)
     }
     
     func addEmptyStateView(_ tableView: UITableView, with message: String) {
