@@ -143,15 +143,9 @@
 				9C44CF0521CAAA5F007F03C2 /* Models */,
 				9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */,
 				9C44CF0A21CAAC3E007F03C2 /* Core Data Helpers */,
-				9C44CEF121CA9DEE007F03C2 /* ContactsViewController.swift */,
-				9C44CEF221CA9DEE007F03C2 /* ContactsViewController.xib */,
-				9CEB8F8021D1925400766CBB /* ContactDetailViewController.swift */,
-				9CEB8F8121D1925400766CBB /* ContactDetailViewController.xib */,
-				9CEB8F7E21D190BA00766CBB /* Create Contact Flow */,
+				9CDF959D21D439F8005B9ED3 /* View Controllers */,
 				9CEB8F7F21D1920400766CBB /* Contact TableView Cells */,
-				9C44CF1D21CAEB3C007F03C2 /* Validate.swift */,
-				9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */,
-				9C122AE721D3F432005430B8 /* StatesHelper.swift */,
+				9CDF959C21D439E5005B9ED3 /* Helpers */,
 				9CDB04CA21CD5C6D00B54B4C /* Enums */,
 				9C44CF1921CADA58007F03C2 /* Extensions */,
 				9C44CF1A21CADA64007F03C2 /* Custom Views */,
@@ -189,6 +183,7 @@
 		9C44CF1921CADA58007F03C2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */,
 				9C44CF1321CAB047007F03C2 /* UITableViewCellExtensions.swift */,
 				9C44CF1F21CAECF3007F03C2 /* UIViewControllerExtensions.swift */,
 				9C44CF1B21CAE57B007F03C2 /* DateExtensions.swift */,
@@ -215,6 +210,27 @@
 				9CDB04C821CD5C4100B54B4C /* ContactInfoType.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		9CDF959C21D439E5005B9ED3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9C44CF1D21CAEB3C007F03C2 /* Validate.swift */,
+				9C122AE721D3F432005430B8 /* StatesHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9CDF959D21D439F8005B9ED3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C44CEF121CA9DEE007F03C2 /* ContactsViewController.swift */,
+				9C44CEF221CA9DEE007F03C2 /* ContactsViewController.xib */,
+				9CEB8F8021D1925400766CBB /* ContactDetailViewController.swift */,
+				9CEB8F8121D1925400766CBB /* ContactDetailViewController.xib */,
+				9CEB8F7E21D190BA00766CBB /* Create Contact Flow */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		9CEB8F7E21D190BA00766CBB /* Create Contact Flow */ = {
@@ -512,7 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Persons.Code-Test-Luis-Garcia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -530,7 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Persons.Code-Test-Luis-Garcia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
