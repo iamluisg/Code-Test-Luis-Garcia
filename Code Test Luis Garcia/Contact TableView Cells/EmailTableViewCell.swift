@@ -12,6 +12,7 @@ class EmailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var emailTextField: UILabel!
     @IBOutlet weak var typeTextField: UILabel!
+    @IBOutlet weak var deleteCellButton: UIButton!
     
     var deleteEmailCell: ((UITableViewCell) -> ())?
     

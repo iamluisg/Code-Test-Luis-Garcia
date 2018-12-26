@@ -18,7 +18,7 @@ class AddContactAddressViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var typeTextField: UITextField!
     
-    private var contactInfoTypes = ContactInfoType.allValues
+    private var contactInfoTypes = [ContactInfoType.empty, ContactInfoType.home, ContactInfoType.office]
     private var addressObjects = [Address]()
     private var activeTextField: UITextField?
     private var contactInfoTypePickerView = UIPickerView()

@@ -20,10 +20,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="psi-yn-ARw">
-                        <rect key="frame" x="5" y="-19.5" width="35" height="198.5"/>
+                        <rect key="frame" x="5" y="0.0" width="35" height="159.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="c1A-Vq-TTK"/>
-                            <constraint firstAttribute="height" constant="198" id="zUd-ET-Z4d"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                         <state key="normal" title="-">
@@ -71,6 +70,7 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="psi-yn-ARw" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" id="4sB-IM-s5Q"/>
                     <constraint firstAttribute="trailing" secondItem="v4p-2k-H3q" secondAttribute="trailing" constant="16" id="5mb-wW-52v"/>
                     <constraint firstItem="v4p-2k-H3q" firstAttribute="leading" secondItem="psi-yn-ARw" secondAttribute="trailing" constant="8" id="BEt-hT-ZeD"/>
                     <constraint firstItem="PW3-Ry-4CS" firstAttribute="trailing" secondItem="WEy-4p-t5q" secondAttribute="trailing" id="GnE-6h-ce6"/>
@@ -97,6 +97,7 @@
             <connections>
                 <outlet property="addressTypeLabel" destination="gdb-nO-RsK" id="OO3-GP-xx8"/>
                 <outlet property="cityTextField" destination="PW3-Ry-4CS" id="vZm-DS-Lao"/>
+                <outlet property="deleteCellButton" destination="psi-yn-ARw" id="fKs-PZ-l7s"/>
                 <outlet property="stateTextField" destination="d4K-eB-dlA" id="nGL-xQ-3rs"/>
                 <outlet property="streetDetailTextField" destination="WEy-4p-t5q" id="oYj-no-VSA"/>
                 <outlet property="streetTextField" destination="v4p-2k-H3q" id="9Zf-Cc-MNc"/>

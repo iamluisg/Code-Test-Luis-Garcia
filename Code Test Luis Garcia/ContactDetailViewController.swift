@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MessageUI
+import MapKit
 
 class ContactDetailViewController: UIViewController {
     
@@ -29,7 +31,6 @@ class ContactDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.registerTableViewCells()
         self.setDetailObjects()
@@ -60,6 +61,37 @@ class ContactDetailViewController: UIViewController {
         
         self.tableView.reloadData()
     }
+    
+    //MARK: - User actions
+    func placeCallTo(phoneNumber: String) {
+        if let url = URL(string: "tel://1\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            self.presentAlert(title: "Error", message: "Could not complete call to the specified phone number. Please make sure the number is valid.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+        }
+    }
+    
+    func sendMessageTo(phoneNumber: String) {
+        if MFMessageComposeViewController.canSendText() {
+            let composeVC = MFMessageComposeViewController()
+            composeVC.messageComposeDelegate = self
+            composeVC.recipients = [phoneNumber]
+            self.present(composeVC, animated: true, completion: nil)
+        } else {
+            self.presentAlert(title: "Error", message: "Sorry, but messages cannot be sent from this device.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+        }
+    }
+    
+    func sendEmailTo(address: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mailVC = MFMailComposeViewController()
+            mailVC.mailComposeDelegate = self
+            mailVC.setToRecipients([address])
+            self.present(mailVC, animated: true, completion: nil)
+        } else {
+            self.presentAlert(title: "Error", message: "Sorry, but messages cannot be sent from this device.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+        }
+    }
 
 }
 
@@ -68,10 +100,19 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
+            if self.phoneArray.count == 0 {
+                return nil
+            }
             return "Phone numbers"
         case 1:
+            if self.emailArray.count == 0 {
+                return nil
+            }
             return "Email addresses"
         case 2:
+            if self.addressArray.count == 0 {
+                return nil
+            }
             return "Addresses"
         default:
             return nil
@@ -102,12 +143,14 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
             let phoneObject = self.phoneArray[indexPath.row]
             cell.phoneNumberLabel.text = phoneObject.number
             cell.phoneTypeLabel.text = phoneObject.type
+            cell.deleteCellButton.isHidden = true
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: EmailTableViewCell.identifier, for: indexPath) as! EmailTableViewCell
             let emailObject = self.emailArray[indexPath.row]
             cell.emailTextField.text = emailObject.address
             cell.typeTextField.text = emailObject.type
+            cell.deleteCellButton.isHidden = true
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: AddressTableViewCell.identifier, for: indexPath) as! AddressTableViewCell
@@ -118,6 +161,7 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
             cell.stateTextField.text = addressObject.state
             cell.zipTextField.text = addressObject.zip
             cell.addressTypeLabel.text = addressObject.type
+            cell.deleteCellButton.isHidden = true
             return cell
         default:
             return UITableViewCell()
@@ -135,4 +179,92 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.section {
+        case 0:
+            let phoneObject = self.phoneArray[indexPath.row]
+            self.presentAlert(title: "Please select action", message: nil, type: .ActionSheet, actions: [("Message \(phoneObject.number)", .default),("Call \(phoneObject.number)", .default), ("Cancel", .cancel)]) { (response) in
+                switch response {
+                case 0:
+                    self.sendMessageTo(phoneNumber: phoneObject.number)
+                    return
+                case 1:
+                    self.placeCallTo(phoneNumber: phoneObject.number)
+                    return
+                default:
+                    return
+                }
+            }
+            return
+        case 1:
+            let emailObject = self.emailArray[indexPath.row]
+            self.presentAlert(title: "Please select action", message: nil, type: .ActionSheet, actions: [("Email \(emailObject.address)", .default), ("Cancel", .cancel)]) { (response) in
+                switch response {
+                case 0:
+                    self.sendEmailTo(address: emailObject.address)
+                    return
+                default:
+                    return
+                }
+            }
+            return
+        case 2:
+            let addressObject = self.addressArray[indexPath.row]
+            self.presentAlert(title: "Please select action", message: nil, type: .ActionSheet, actions: [("Open Maps to \(addressObject.street)", .default), ("Get directions to \(addressObject.street)", .default), ("Cancel", .cancel)]) { (response) in
+                switch response {
+                case 0:
+                    self.openMapsTo(address: addressObject)
+                    return
+                case 1:
+                    self.getDirectionsTo(address: addressObject)
+                default:
+                    return
+                }
+            }
+        default:
+            return
+        }
+    }
+    
+    func openMapsTo(address: Address) {
+        let street = address.street.replacingOccurrences(of: " ", with: "+")
+        let city = address.city.replacingOccurrences(of: " ", with: "+")
+        let state = address.state
+        let zip = address.zip
+        if let url =  URL(string:"http://maps.apple.com/?address=\(street),\(city),\(state),\(zip)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func getDirectionsTo(address: Address) {
+        let street = address.street.replacingOccurrences(of: " ", with: "+")
+        let city = address.city.replacingOccurrences(of: " ", with: "+")
+        let state = address.state
+        let zip = address.zip
+        if let url =  URL(string:"http://maps.apple.com/?daddr=\(street),\(city),\(state),\(zip)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
+
+extension ContactDetailViewController: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ContactDetailViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case .failed:
+            self.presentAlert(title: "Error", message: "Sorry, but your email failed to send. Please try again.", type: .Alert, actions: [("Done", .default)]) { (_) in
+                controller.dismiss(animated: true, completion: nil)
+            }
+        default:
+            controller.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+

@@ -12,6 +12,7 @@ class PhoneTableViewCell: UITableViewCell {
 
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var phoneTypeLabel: UILabel!
+    @IBOutlet weak var deleteCellButton: UIButton!
     
     var deletePhoneCell: ((UITableViewCell) -> ())?
     

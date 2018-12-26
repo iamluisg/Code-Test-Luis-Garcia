@@ -46,7 +46,6 @@ class AddContactPhoneViewController: UIViewController {
     }
     
     func refreshPageWith(contact: Contact) {
-        
         guard var phoneNumbers: [Phone] = contact.phone.allObjects as? [Phone] else {
             return
         }
@@ -140,7 +139,6 @@ extension AddContactPhoneViewController: UITableViewDataSource, UITableViewDeleg
         cell.phoneTypeLabel.text = phoneObject.type
         return cell
     }
-    
     
 }
 

@@ -59,6 +59,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteCellButton" destination="GhX-lp-OrH" id="byE-YU-j8t"/>
                 <outlet property="phoneNumberLabel" destination="gjH-iD-P0d" id="pZf-2g-H4B"/>
                 <outlet property="phoneTypeLabel" destination="aWC-4H-UzN" id="Z96-2J-NIZ"/>
             </connections>

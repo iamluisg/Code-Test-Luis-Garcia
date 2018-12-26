@@ -76,7 +76,7 @@ class AddContactViewController: UIViewController {
     @IBAction func saveContact(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         
-        guard let firstName = self.firstNameTextField.text, let lastName = self.lastNameTextField.text else {
+        guard let firstName = self.firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let lastName = self.lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
                 self.presentAlert(title: "Empty Field", message: "Please fill in both First and Last names to save your contact.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
         }

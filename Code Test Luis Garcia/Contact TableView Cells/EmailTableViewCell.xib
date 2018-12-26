@@ -59,6 +59,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteCellButton" destination="gvQ-Ia-7Gu" id="Xb0-qs-PXR"/>
                 <outlet property="emailTextField" destination="UmJ-lW-l4S" id="jF2-5W-C1a"/>
                 <outlet property="typeTextField" destination="Gkc-9y-ey7" id="p84-yk-uwQ"/>
             </connections>
