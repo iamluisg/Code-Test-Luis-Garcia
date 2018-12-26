@@ -17,6 +17,7 @@ class ContactDetailViewController: UIViewController {
     private var phoneArray = [Phone]()
     private var emailArray = [Email]()
     private var addressArray = [Address]()
+    private var contactDetailHeaderView: ContactDetailHeaderView?
     
     var contact: Contact!
 
@@ -34,6 +35,7 @@ class ContactDetailViewController: UIViewController {
         
         self.registerTableViewCells()
         self.setDetailObjects()
+        self.addEditButton()
     }
     
     func registerTableViewCells() {
@@ -42,15 +44,80 @@ class ContactDetailViewController: UIViewController {
         self.tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil), forCellReuseIdentifier: AddressTableViewCell.identifier)
     }
     
-    func setDetailObjects() {
-        let headerView = ContactDetailHeaderView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: 120))
-        headerView.nameLabel.text = self.contact.fullName
-        if let date = self.contact.dob as Date? {
-            headerView.dobLabel.text = Date().getFormattedStringFromDate(date: date)
-        } else {
-            headerView.dobLabel.text = "N/A"
+    func addEditButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                        target: self,
+                                        action: #selector(showEditActionSheet))
+        self.navigationItem.setRightBarButton(addButton, animated: false)
+    }
+    
+    @objc func showEditActionSheet() {
+        self.presentAlert(title: "What would you like to edit?", message: nil, type: .ActionSheet, actions: [("Edit Name/DOB", .default), ("Edit Phone Numbers", .default), ("Edit Email Addresses", .default), ("Edit Addresses", .default), ("Cancel", .cancel)]) { (response) in
+            switch response {
+            case 0:
+                self.editNameAndDOB()
+                return
+            case 1:
+                self.editPhoneNumbers()
+                return
+            case 2:
+                self.editEmailAddresses()
+                return
+            case 3:
+                self.editAddresses()
+                return
+            default: return
+            }
         }
-        self.tableView.tableHeaderView = headerView
+    }
+    
+    func editNameAndDOB() {
+        let addContactVC = AddContactViewController(contact: self.contact, isEditing: true)
+        addContactVC.didUpdateContact = { [weak self] (contact) in
+            self?.contact = contact
+            self?.setDetailObjects()
+        }
+        self.present(addContactVC, animated: true, completion: nil)
+    }
+    
+    func editPhoneNumbers() {
+        let phoneNumbersVC = AddContactPhoneViewController(contact: self.contact, isEditing: true)
+        phoneNumbersVC.didUpdateContact = { [weak self] (contact) in
+            self?.contact = contact
+            self?.setDetailObjects()
+        }
+        self.present(phoneNumbersVC, animated: true, completion: nil)
+    }
+    
+    func editEmailAddresses() {
+        let emailAddressesVC = AddContactEmailViewController(contact: self.contact, isEditing: true)
+        emailAddressesVC.didUpdateContact = { [weak self] (contact) in
+            self?.contact = contact
+            self?.setDetailObjects()
+        }
+        self.present(emailAddressesVC, animated: true, completion: nil)
+    }
+    
+    func editAddresses() {
+        let addressesVC = AddContactAddressViewController(contact: self.contact, isEditing: true)
+        addressesVC.didUpdateContact = { [weak self] (contact) in
+            self?.contact = contact
+            self?.setDetailObjects()
+        }
+        self.present(addressesVC, animated: true, completion: nil)
+    }
+    
+    func setDetailObjects() {
+        if self.contactDetailHeaderView == nil {
+            self.contactDetailHeaderView = ContactDetailHeaderView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: 120))
+            self.tableView.tableHeaderView = self.contactDetailHeaderView
+        }
+        self.contactDetailHeaderView?.nameLabel.text = self.contact.fullName
+        if let date = self.contact.dob as Date? {
+            self.contactDetailHeaderView?.dobLabel.text = Date().getFormattedStringFromDate(date: date)
+        } else {
+            self.contactDetailHeaderView?.dobLabel.text = "N/A"
+        }
         
         guard let emails = self.contact.email.allObjects as? [Email] else { return }
         self.emailArray = emails.sorted(by: { $0.type < $1.type })
@@ -125,17 +192,17 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
         switch section {
         case 0:
             if self.phoneArray.count == 0 {
-                return nil
+                return "Edit contact to add phone numbers"
             }
             return "Phone numbers"
         case 1:
             if self.emailArray.count == 0 {
-                return nil
+                return "Edit contact to add email addresses"
             }
             return "Email addresses"
         case 2:
             if self.addressArray.count == 0 {
-                return nil
+                return "Edit contact to add addresses"
             }
             return "Addresses"
         default:

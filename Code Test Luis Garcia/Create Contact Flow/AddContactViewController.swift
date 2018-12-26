@@ -18,16 +18,37 @@ class AddContactViewController: UIViewController {
     private lazy var activeTextField: UITextField? = nil
     private let dobToolbar: UIToolbar = UIToolbar()
     private var dob: Date?
+    private var isContactEditing: Bool = false
+    private var contact: Contact?
+    
+    var didUpdateContact: ((Contact) -> ())?
+    
+    init(contact: Contact? = nil, isEditing: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        self.contact = contact
+        self.isContactEditing = isEditing
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - UIViewControler Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add Contact"
         self.setDOBDatePicker()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        
+        if self.isContactEditing {
+            self.firstNameTextField.text = contact?.firstName
+            self.lastNameTextField.text = contact?.lastName
+            if let dob = self.contact?.dob {
+                if let date = dob as Date? {
+                    self.dobPicker.date = date
+                    self.dobTextField.text = Date().getFormattedStringFromDate(date: date)
+                }
+            }
+        }
     }
     
     //MARK: - View Controller Setup
@@ -87,16 +108,31 @@ class AddContactViewController: UIViewController {
         if let _ = self.dobTextField.text {
             dob = self.dobPicker.date
         }
-        
-        CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
-            if error != nil {
-                self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
-            } else {
-                NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
-                guard let contact = contact else {
-                    return
+        if self.isContactEditing {
+            guard let contact = self.contact else {
+                self.presentAlert(title: "Error", message: "Could not successfully update your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                return
+            }
+            CoreDataManager.shared.update(firstName: firstName, lastName: lastName, dob: dob, of: contact) { (contact, error) in
+                if error != nil {
+                    self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                } else {
+                    NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+                    guard let updatedContact = contact else { return }
+                    self.endEditing(contact: updatedContact)
                 }
-                self.presentAddDetailsOptionTo(contact: contact)
+            }
+        } else {
+            CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+                if error != nil {
+                    self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+                } else {
+                    NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+                    guard let contact = contact else {
+                        return
+                    }
+                    self.presentAddDetailsOptionTo(contact: contact)
+                }
             }
         }
     }
@@ -117,6 +153,13 @@ class AddContactViewController: UIViewController {
                 return
             }
         } )
+    }
+    
+    func endEditing(contact: Contact) {
+        if let contact = self.contact {
+            self.didUpdateContact?(contact)
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

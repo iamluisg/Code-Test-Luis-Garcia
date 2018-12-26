@@ -14,6 +14,7 @@ class AddContactEmailViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailTypeTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var completeActionButton: UIButton!
     
     private var contactInfoTypePickerView = UIPickerView()
     private var contactInfoTypes = ContactInfoType.allValues
@@ -21,10 +22,13 @@ class AddContactEmailViewController: UIViewController {
     private var activeTextField: UITextField?
     
     var contact: Contact!
+    private var isEditingContact: Bool = false
+    var didUpdateContact: ((Contact) -> ())?
 
-    init(contact: Contact) {
+    init(contact: Contact, isEditing: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         self.contact = contact
+        self.isEditingContact = isEditing
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +46,10 @@ class AddContactEmailViewController: UIViewController {
         self.emailObjects =  emails.sorted(by: {$0.type < $1.type})//emails.sort(by: {$0.type < $1.type})
         self.setTypeTextFieldPicker()
         self.setNavigationButton()
+        
+        if self.isEditingContact {
+            self.completeActionButton.setTitle("Done Editing", for: .normal)
+        }
     }
     
     func setTypeTextFieldPicker() {
@@ -116,11 +124,17 @@ class AddContactEmailViewController: UIViewController {
             }
             self?.emailObjects.remove(at: indexPath.row)
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.tableView.reloadData()
         }
     }
     
     @IBAction func nextPage(_ sender: Any) {
-        self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
+        if !self.isEditingContact {
+            self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
+        } else {
+            self.didUpdateContact?(self.contact)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }

@@ -47,7 +47,9 @@ class ContactsViewController: UIViewController {
     func fetchContacts() {
         let request = Contact.fetchRequest() as NSFetchRequest<Contact>
         if !query.isEmpty {
-            request.predicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
+            let lastNamePredicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
+            let firstNamePredicate = NSPredicate(format: "firstName CONTAINS[cd] %@", query)
+            request.predicate = NSCompoundPredicate(type: .or, subpredicates: [lastNamePredicate, firstNamePredicate])
         }
         let sort = NSSortDescriptor(key: #keyPath(Contact.lastName), ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
         request.sortDescriptors = [sort]
@@ -175,6 +177,16 @@ extension ContactsViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         self.fetchContacts()
         self.contactsTableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+//            self.isFiltered = false
+            query = ""
+            searchBar.text = nil
+            self.fetchContacts()
+            self.contactsTableView.reloadData()
+        }
     }
 }
 

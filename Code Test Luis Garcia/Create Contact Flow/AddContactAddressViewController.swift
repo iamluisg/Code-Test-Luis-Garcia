@@ -17,6 +17,7 @@ class AddContactAddressViewController: UIViewController {
     @IBOutlet weak var zipTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var typeTextField: UITextField!
+    @IBOutlet weak var doneEditingButton: UIButton!
     
     private var contactInfoTypes = [ContactInfoType.empty, ContactInfoType.home, ContactInfoType.office]
     private lazy var states = statesArray
@@ -26,10 +27,13 @@ class AddContactAddressViewController: UIViewController {
     private var contactInfoTypePickerView = UIPickerView()
     
     var contact: Contact!
+    private var isEditingContact: Bool = false
+    var didUpdateContact: ((Contact) -> ())?
     
-    init(contact: Contact) {
+    init(contact: Contact, isEditing: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         self.contact = contact
+        self.isEditingContact = isEditing
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,6 +51,10 @@ class AddContactAddressViewController: UIViewController {
         self.addressObjects = addresses.sorted(by: {$0.type < $1.type})
         self.setPickerViews()
         self.setNavigationButton()
+        
+        if self.isEditingContact {
+            self.doneEditingButton.isHidden = false
+        }
     }
     
     func setPickerViews() {
@@ -124,8 +132,15 @@ class AddContactAddressViewController: UIViewController {
             }
             self?.addressObjects.remove(at: indexPath.row)
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.tableView.reloadData()
         }
     }
+    
+    @IBAction func completeEditing(_ sender: Any) {
+        self.didUpdateContact?(self.contact)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContactEmailViewController" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
             <connections>
+                <outlet property="completeActionButton" destination="Zrm-aL-BBG" id="UD1-Jo-tYN"/>
                 <outlet property="emailTextField" destination="ub1-sP-DEm" id="law-AA-3gh"/>
                 <outlet property="emailTypeTextField" destination="eVK-YB-LuO" id="heH-ht-L2b"/>
                 <outlet property="nameLabel" destination="uli-hB-bcz" id="P6p-td-M4z"/>
@@ -34,7 +35,7 @@
                     <rect key="frame" x="16" y="94" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="gwb-nQ-11a"/>
                     </connections>

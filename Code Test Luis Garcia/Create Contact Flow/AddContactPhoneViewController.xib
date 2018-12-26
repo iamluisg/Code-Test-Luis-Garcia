@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddContactPhoneViewController" customModule="Code_Test_Luis_Garcia" customModuleProvider="target">
             <connections>
+                <outlet property="completeActionButton" destination="7ay-4n-8h4" id="NPN-sF-aXb"/>
                 <outlet property="contactNameLabel" destination="gXN-vG-Dme" id="wty-iK-bQ8"/>
                 <outlet property="contactTypeTextField" destination="lUa-US-LkC" id="fku-a2-1zA"/>
                 <outlet property="phoneTextField" destination="ZH0-5X-ALn" id="iRg-L3-gal"/>

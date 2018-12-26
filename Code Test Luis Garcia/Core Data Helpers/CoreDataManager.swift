@@ -41,6 +41,22 @@ class CoreDataManager {
         }
     }
     
+    func update(firstName: String, lastName: String, dob: Date?, of contact: Contact, completion: @escaping (Contact?, NSError?) -> ()) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        contact.setValue(firstName, forKey: "firstName")
+        contact.setValue(lastName, forKey: "lastName")
+        if let dob = dob {
+            contact.setValue(dob as NSDate, forKey: "dob")
+        }
+        do {
+            try context.save()
+            context.refresh(contact, mergeChanges: true)
+            completion(contact, nil)
+        } catch {
+            completion(nil, error as NSError)
+        }
+    }
+    
     func addEmailTo(contact: Contact, address: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         

@@ -14,6 +14,7 @@ class AddContactPhoneViewController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var contactTypeTextField: UITextField!
+    @IBOutlet weak var completeActionButton: UIButton!
     
     private var contactInfoTypePickerView = UIPickerView()
     private var contactInfoTypes = ContactInfoType.allValues
@@ -21,10 +22,13 @@ class AddContactPhoneViewController: UIViewController {
     private var activeTextField: UITextField?
     
     var contact: Contact!
+    private var isEditingContact: Bool = false
+    var didUpdateContact: ((Contact) -> ())?
     
-    init(contact: Contact) {
+    init(contact: Contact, isEditing: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         self.contact = contact
+        self.isEditingContact = isEditing
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,9 +44,13 @@ class AddContactPhoneViewController: UIViewController {
             return
         }
         phoneNumbers.sort(by: {$0.type < $1.type})
-        
+        self.phoneObjects = phoneNumbers
         self.setTypeTextFieldPicker()
         self.setNavigationButton()
+        
+        if self.isEditingContact {
+            self.completeActionButton.setTitle("Done Editing", for: .normal)
+        }
     }
     
     func refreshPageWith(contact: Contact) {
@@ -116,13 +124,19 @@ class AddContactPhoneViewController: UIViewController {
             }
             self?.phoneObjects.remove(at: indexPath.row)
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.tableView.reloadData()
         }
     }
     
     @IBAction func nextPage(_ sender: Any) {
-        self.phoneTextField.text = nil
-        self.contactTypeTextField.text = nil
-        self.navigationController?.pushViewController(AddContactEmailViewController(contact: self.contact), animated: true)
+        if !self.isEditingContact {
+            self.phoneTextField.text = nil
+            self.contactTypeTextField.text = nil
+            self.navigationController?.pushViewController(AddContactEmailViewController(contact: self.contact), animated: true)
+        } else {
+            self.didUpdateContact?(self.contact)
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
 }
@@ -137,6 +151,9 @@ extension AddContactPhoneViewController: UITableViewDataSource, UITableViewDeleg
         let phoneObject = self.phoneObjects[indexPath.row]
         cell.phoneNumberLabel.text = phoneObject.number
         cell.phoneTypeLabel.text = phoneObject.type
+        cell.deletePhoneCell = { [weak self] cell in
+            self?.deletePhoneNumber(object: phoneObject, at: indexPath)
+        }
         return cell
     }
     
