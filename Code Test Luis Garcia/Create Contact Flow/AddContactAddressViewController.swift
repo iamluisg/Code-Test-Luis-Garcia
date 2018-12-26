@@ -19,6 +19,8 @@ class AddContactAddressViewController: UIViewController {
     @IBOutlet weak var typeTextField: UITextField!
     
     private var contactInfoTypes = [ContactInfoType.empty, ContactInfoType.home, ContactInfoType.office]
+    private lazy var states = statesArray
+    private var statePickerView = UIPickerView()
     private var addressObjects = [Address]()
     private var activeTextField: UITextField?
     private var contactInfoTypePickerView = UIPickerView()
@@ -43,14 +45,18 @@ class AddContactAddressViewController: UIViewController {
             return
         }
         self.addressObjects = addresses.sorted(by: {$0.type < $1.type})
-        self.setTypeTextFieldPicker()
+        self.setPickerViews()
         self.setNavigationButton()
     }
     
-    func setTypeTextFieldPicker() {
+    func setPickerViews() {
         self.contactInfoTypePickerView.delegate = self
         self.contactInfoTypePickerView.dataSource = self
         self.typeTextField.inputView = self.contactInfoTypePickerView
+        
+        self.statePickerView.delegate = self
+        self.statePickerView.dataSource = self
+        self.stateTextField.inputView = self.statePickerView
     }
 
     func setNavigationButton() {
@@ -81,12 +87,15 @@ class AddContactAddressViewController: UIViewController {
     
     @IBAction func saveAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
-        guard let street = self.streetTextField.text, let city = self.cityTextField.text, let state = self.stateTextField.text, let zip = self.zipTextField.text, let type = self.typeTextField.text else {
+        guard let street = self.streetTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let city = self.cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let state = self.stateTextField.text, let zip = self.zipTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.typeTextField.text else {
             self.presentAlert(title: "Error", message: "Street, City, State, and Zip code fields are required to save.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             return
         }
-        
         if Validate.isStringEmpty(street) && Validate.isStringEmpty(city) && Validate.isStringEmpty(state) && Validate.isStringEmpty(zip) {
+            return
+        }
+        if !Validate.isValidZipCode(postalCode: zip) {
+            self.presentAlert(title: "Error", message: "Please enter a valid US zip code.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             return
         }
         
@@ -150,22 +159,37 @@ extension AddContactAddressViewController: UIPickerViewDataSource, UIPickerViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.contactInfoTypes.count
+        if pickerView == self.contactInfoTypePickerView {
+            return self.contactInfoTypes.count
+        } else {
+            return self.states.count
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if self.contactInfoTypes[row] == ContactInfoType.empty {
-            return ""
+        if pickerView == self.contactInfoTypePickerView {
+            if self.contactInfoTypes[row] == ContactInfoType.empty {
+                return ""
+            } else {
+                return self.contactInfoTypes[row].rawValue
+            }
         } else {
-            return self.contactInfoTypes[row].rawValue
+            let state = self.states[row]
+            return state
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if self.contactInfoTypes[row] == ContactInfoType.empty {
-            self.typeTextField.text = nil
+        if pickerView == self.contactInfoTypePickerView {
+            if self.contactInfoTypes[row] == ContactInfoType.empty {
+                self.typeTextField.text = nil
+            } else {
+                self.typeTextField.text = contactInfoTypes[row].rawValue
+            }
         } else {
-            self.typeTextField.text = contactInfoTypes[row].rawValue
+            let abbreviation = String(self.states[row].prefix(2))
+            self.stateTextField.text = abbreviation
         }
     }
 }

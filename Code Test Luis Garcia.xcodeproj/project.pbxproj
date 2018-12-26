@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C122AE821D3F432005430B8 /* StatesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C122AE721D3F432005430B8 /* StatesHelper.swift */; };
 		9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */; };
 		9C44CEE521CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEE321CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld */; };
 		9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CEE621CA9B8C007F03C2 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C122AE721D3F432005430B8 /* StatesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesHelper.swift; sourceTree = "<group>"; };
 		9C44CED921CA9B8A007F03C2 /* Code Test Luis Garcia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Code Test Luis Garcia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C44CEE421CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Code_Test_Luis_Garcia.xcdatamodel; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				9CEB8F7F21D1920400766CBB /* Contact TableView Cells */,
 				9C44CF1D21CAEB3C007F03C2 /* Validate.swift */,
 				9C44CF2121CB0289007F03C2 /* NotificationCenterManager.swift */,
+				9C122AE721D3F432005430B8 /* StatesHelper.swift */,
 				9CDB04CA21CD5C6D00B54B4C /* Enums */,
 				9C44CF1921CADA58007F03C2 /* Extensions */,
 				9C44CF1A21CADA64007F03C2 /* Custom Views */,
@@ -331,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CDB04D321CD8BB000B54B4C /* AddContactAddressViewController.swift in Sources */,
+				9C122AE821D3F432005430B8 /* StatesHelper.swift in Sources */,
 				9C44CF1121CAAF87007F03C2 /* ContactsTableViewCell.swift in Sources */,
 				9C44CF2221CB0289007F03C2 /* NotificationCenterManager.swift in Sources */,
 				9C44CF1C21CAE57B007F03C2 /* DateExtensions.swift in Sources */,

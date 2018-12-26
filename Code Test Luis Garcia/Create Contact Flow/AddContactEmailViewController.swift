@@ -87,7 +87,7 @@ class AddContactEmailViewController: UIViewController {
     //MARK: - User actions
     @IBAction func saveEmailAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
-        guard let email = self.emailTextField.text, let type = self.emailTypeTextField.text else {
+        guard let email = self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.emailTypeTextField.text else {
             return
         }
         if Validate.isStringEmpty(type) || Validate.isStringEmpty(email) {

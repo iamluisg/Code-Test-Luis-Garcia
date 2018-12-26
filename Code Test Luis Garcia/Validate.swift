@@ -61,4 +61,16 @@ struct Validate {
         
         return result
     }
+    
+    
+    /*
+     Zip Code Validaor:
+     - Checks if a zip code is the valid format for the US only
+     */
+    static func isValidZipCode(postalCode:String)-> Bool {
+        let postalcodeRegex = "^[0-9]{5}(-[0-9]{4})?$"
+        let pinPredicate = NSPredicate(format: "SELF MATCHES %@", postalcodeRegex)
+        let bool = pinPredicate.evaluate(with: postalCode) as Bool
+        return bool
+    }
 }

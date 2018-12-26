@@ -38,7 +38,7 @@
                     <rect key="frame" x="16" y="91" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="address-line1"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="bSs-go-0wj"/>
                     </connections>
@@ -47,7 +47,7 @@
                     <rect key="frame" x="16" y="131" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="address-line2"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="xPG-h5-WbH"/>
                     </connections>
@@ -56,7 +56,7 @@
                     <rect key="frame" x="16" y="171" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" textContentType="address-level2"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="WRc-uC-aT1"/>
                     </connections>
@@ -65,7 +65,7 @@
                     <rect key="frame" x="16" y="211" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" textContentType="address-level1"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="uGi-O1-VxY"/>
                     </connections>
@@ -74,7 +74,7 @@
                     <rect key="frame" x="16" y="251" width="343" height="30"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" textContentType="postal-code"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="CTg-cA-kHF"/>
                     </connections>

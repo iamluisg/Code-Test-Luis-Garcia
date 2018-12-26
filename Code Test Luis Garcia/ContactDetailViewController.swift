@@ -92,6 +92,30 @@ class ContactDetailViewController: UIViewController {
             self.presentAlert(title: "Error", message: "Sorry, but messages cannot be sent from this device.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
         }
     }
+    
+    func openMapsTo(address: Address) {
+        let street = address.street.replacingOccurrences(of: " ", with: "+")
+        let city = address.city.replacingOccurrences(of: " ", with: "+")
+        let state = address.state
+        let zip = address.zip
+        if let url =  URL(string:"http://maps.apple.com/?address=\(street),\(city),\(state),\(zip)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            self.presentAlert(title: "Error", message: "Sorry, but we could not open this address.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+        }
+    }
+    
+    func getDirectionsTo(address: Address) {
+        let street = address.street.replacingOccurrences(of: " ", with: "+")
+        let city = address.city.replacingOccurrences(of: " ", with: "+")
+        let state = address.state
+        let zip = address.zip
+        if let url =  URL(string:"http://maps.apple.com/?daddr=\(street),\(city),\(state),\(zip)") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            self.presentAlert(title: "Error", message: "Sorry, but we could not open this address.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+        }
+    }
 
 }
 
@@ -227,25 +251,6 @@ extension ContactDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func openMapsTo(address: Address) {
-        let street = address.street.replacingOccurrences(of: " ", with: "+")
-        let city = address.city.replacingOccurrences(of: " ", with: "+")
-        let state = address.state
-        let zip = address.zip
-        if let url =  URL(string:"http://maps.apple.com/?address=\(street),\(city),\(state),\(zip)") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func getDirectionsTo(address: Address) {
-        let street = address.street.replacingOccurrences(of: " ", with: "+")
-        let city = address.city.replacingOccurrences(of: " ", with: "+")
-        let state = address.state
-        let zip = address.zip
-        if let url =  URL(string:"http://maps.apple.com/?daddr=\(street),\(city),\(state),\(zip)") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
 }
 
 extension ContactDetailViewController: MFMessageComposeViewControllerDelegate {
