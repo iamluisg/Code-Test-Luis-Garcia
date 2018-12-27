@@ -55,9 +55,10 @@ class AddContactAddressViewController: UIViewController {
         if self.isEditingContact {
             self.doneEditingButton.isHidden = false
         }
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    func setPickerViews() {
+    private func setPickerViews() {
         self.contactInfoTypePickerView.delegate = self
         self.contactInfoTypePickerView.dataSource = self
         self.typeTextField.inputView = self.contactInfoTypePickerView
@@ -67,14 +68,14 @@ class AddContactAddressViewController: UIViewController {
         self.stateTextField.inputView = self.statePickerView
     }
 
-    func setNavigationButton() {
+    private func setNavigationButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .done,
                                         target: self,
                                         action: #selector(completeAddContact))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    func refreshPageWith(contact: Contact) {
+    private func refreshPageWith(contact: Contact) {
         guard var addresses: [Address] = contact.address.allObjects as? [Address] else {
             return
         }
@@ -83,7 +84,7 @@ class AddContactAddressViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    @objc func completeAddContact() {
+    @objc private func completeAddContact() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -93,7 +94,7 @@ class AddContactAddressViewController: UIViewController {
     }
     //MARK: - User actions
     
-    @IBAction func saveAddress(_ sender: Any) {
+    @IBAction private func saveAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         guard let street = self.streetTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let city = self.cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let state = self.stateTextField.text, let zip = self.zipTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.typeTextField.text else {
             self.presentAlert(title: "Error", message: "Street, City, State, and Zip code fields are required to save.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -124,7 +125,7 @@ class AddContactAddressViewController: UIViewController {
         }
     }
     
-    func deleteAddress(object: Address, at indexPath: IndexPath) {
+    private func deleteAddress(object: Address, at indexPath: IndexPath) {
         CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -136,7 +137,7 @@ class AddContactAddressViewController: UIViewController {
         }
     }
     
-    @IBAction func completeEditing(_ sender: Any) {
+    @IBAction private func completeEditing(_ sender: Any) {
         self.didUpdateContact?(self.contact)
         self.dismiss(animated: true, completion: nil)
     }

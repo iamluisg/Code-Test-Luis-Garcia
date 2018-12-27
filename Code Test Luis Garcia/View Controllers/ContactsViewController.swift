@@ -37,14 +37,14 @@ class ContactsViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .refreshContactList, object: nil)
     }
 
-    func setNavigationButton() {
+    private func setNavigationButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
                                         action: #selector(addContact))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    func fetchContacts() {
+    private func fetchContacts() {
         let request = Contact.fetchRequest() as NSFetchRequest<Contact>
         if !query.isEmpty {
             let lastNamePredicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
@@ -63,11 +63,11 @@ class ContactsViewController: UIViewController {
     }
     
     //MARK: - User Actions
-    @objc func addContact() {
+    @objc private func addContact() {
         self.navigationController?.pushViewController(AddContactViewController(), animated: true)
     }
     
-    func deleteContact(object: Contact, at indexPath: IndexPath) {
+    private func deleteContact(object: Contact, at indexPath: IndexPath) {
         CoreDataManager.shared.deleteNSManagedObject(object: object) { (error) in
             if error != nil {
                 self.presentAlert(title: "Error", message: "Could not successfully delete your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -181,7 +181,6 @@ extension ContactsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-//            self.isFiltered = false
             query = ""
             searchBar.text = nil
             self.fetchContacts()

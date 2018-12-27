@@ -50,22 +50,23 @@ class AddContactEmailViewController: UIViewController {
         if self.isEditingContact {
             self.completeActionButton.setTitle("Done Editing", for: .normal)
         }
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    func setTypeTextFieldPicker() {
+    private func setTypeTextFieldPicker() {
         self.contactInfoTypePickerView.delegate = self
         self.contactInfoTypePickerView.dataSource = self
         self.emailTypeTextField.inputView = self.contactInfoTypePickerView
     }
     
-    func setNavigationButton() {
+    private func setNavigationButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .done,
                                         target: self,
                                         action: #selector(completeAddContact))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    @objc func completeAddContact() {
+    @objc private func completeAddContact() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -74,7 +75,7 @@ class AddContactEmailViewController: UIViewController {
         self.activeTextField = nil
     }
     
-    func validateEmail(email: String) -> Bool {
+    private func validateEmail(email: String) -> Bool {
         if Validate.isValidEmail(email) {
             return true
         } else {
@@ -83,7 +84,7 @@ class AddContactEmailViewController: UIViewController {
         }
     }
     
-    func refreshPageWith(contact: Contact) {
+    private func refreshPageWith(contact: Contact) {
         guard var emails: [Email] = contact.email.allObjects as? [Email] else {
             return
         }
@@ -93,7 +94,7 @@ class AddContactEmailViewController: UIViewController {
     }
     
     //MARK: - User actions
-    @IBAction func saveEmailAddress(_ sender: Any) {
+    @IBAction private func saveEmailAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         guard let email = self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.emailTypeTextField.text else {
             return
@@ -116,7 +117,7 @@ class AddContactEmailViewController: UIViewController {
         }
     }
     
-    func deleteEmail(object: Email, at indexPath: IndexPath) {
+    private func deleteEmail(object: Email, at indexPath: IndexPath) {
         CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -128,7 +129,7 @@ class AddContactEmailViewController: UIViewController {
         }
     }
     
-    @IBAction func nextPage(_ sender: Any) {
+    @IBAction private func nextPage(_ sender: Any) {
         if !self.isEditingContact {
             self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
         } else {

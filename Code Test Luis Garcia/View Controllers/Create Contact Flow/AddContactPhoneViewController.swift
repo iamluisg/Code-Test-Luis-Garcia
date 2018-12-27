@@ -51,9 +51,11 @@ class AddContactPhoneViewController: UIViewController {
         if self.isEditingContact {
             self.completeActionButton.setTitle("Done Editing", for: .normal)
         }
+        
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
-    func refreshPageWith(contact: Contact) {
+    private func refreshPageWith(contact: Contact) {
         guard var phoneNumbers: [Phone] = contact.phone.allObjects as? [Phone] else {
             return
         }
@@ -62,24 +64,24 @@ class AddContactPhoneViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    func setTypeTextFieldPicker() {
+    private func setTypeTextFieldPicker() {
         self.contactInfoTypePickerView.delegate = self
         self.contactInfoTypePickerView.dataSource = self
         self.contactTypeTextField.inputView = self.contactInfoTypePickerView
     }
     
-    func setNavigationButton() {
+    private func setNavigationButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .done,
                                         target: self,
                                         action: #selector(completeAddContact))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    @objc func completeAddContact() {
+    @objc private func completeAddContact() {
         self.navigationController?.popToRootViewController(animated: true)
     }
     
-    func validateNumber(number: String) -> Bool {
+    private func validateNumber(number: String) -> Bool {
         return Validate.isValidPhoneNumber(number)
     }
     
@@ -89,7 +91,7 @@ class AddContactPhoneViewController: UIViewController {
     }
     
     //MARK - User actions
-    @IBAction func savePhoneNumber(_ sender: Any) {
+    @IBAction private func savePhoneNumber(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         guard let phoneNumber = self.phoneTextField.text, let type = self.contactTypeTextField.text else {
             return
@@ -116,7 +118,7 @@ class AddContactPhoneViewController: UIViewController {
         }
     }
     
-    func deletePhoneNumber(object: Phone, at indexPath: IndexPath) {
+    private func deletePhoneNumber(object: Phone, at indexPath: IndexPath) {
         CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
@@ -128,7 +130,7 @@ class AddContactPhoneViewController: UIViewController {
         }
     }
     
-    @IBAction func nextPage(_ sender: Any) {
+    @IBAction private func nextPage(_ sender: Any) {
         if !self.isEditingContact {
             self.phoneTextField.text = nil
             self.contactTypeTextField.text = nil

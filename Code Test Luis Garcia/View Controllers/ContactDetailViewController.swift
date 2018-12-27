@@ -38,20 +38,20 @@ class ContactDetailViewController: UIViewController {
         self.addEditButton()
     }
     
-    func registerTableViewCells() {
+    private func registerTableViewCells() {
         self.tableView.register(UINib(nibName: "EmailTableViewCell", bundle: nil), forCellReuseIdentifier: EmailTableViewCell.identifier)
         self.tableView.register(UINib(nibName: "PhoneTableViewCell", bundle: nil), forCellReuseIdentifier: PhoneTableViewCell.identifier)
         self.tableView.register(UINib(nibName: "AddressTableViewCell", bundle: nil), forCellReuseIdentifier: AddressTableViewCell.identifier)
     }
     
-    func addEditButton() {
+    private func addEditButton() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .edit,
                                         target: self,
                                         action: #selector(showEditActionSheet))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    @objc func showEditActionSheet() {
+    @objc private func showEditActionSheet() {
         self.presentAlert(title: "What would you like to edit?", message: nil, type: .ActionSheet, actions: [("Edit Name/DOB", .default), ("Edit Phone Numbers", .default), ("Edit Email Addresses", .default), ("Edit Addresses", .default), ("Cancel", .cancel)]) { (response) in
             switch response {
             case 0:
@@ -71,7 +71,7 @@ class ContactDetailViewController: UIViewController {
         }
     }
     
-    func editNameAndDOB() {
+    private func editNameAndDOB() {
         let addContactVC = AddContactViewController(contact: self.contact, isEditing: true)
         addContactVC.didUpdateContact = { [weak self] (contact) in
             self?.contact = contact
@@ -80,7 +80,7 @@ class ContactDetailViewController: UIViewController {
         self.present(addContactVC, animated: true, completion: nil)
     }
     
-    func editPhoneNumbers() {
+    private func editPhoneNumbers() {
         let phoneNumbersVC = AddContactPhoneViewController(contact: self.contact, isEditing: true)
         phoneNumbersVC.didUpdateContact = { [weak self] (contact) in
             self?.contact = contact
@@ -89,7 +89,7 @@ class ContactDetailViewController: UIViewController {
         self.present(phoneNumbersVC, animated: true, completion: nil)
     }
     
-    func editEmailAddresses() {
+    private func editEmailAddresses() {
         let emailAddressesVC = AddContactEmailViewController(contact: self.contact, isEditing: true)
         emailAddressesVC.didUpdateContact = { [weak self] (contact) in
             self?.contact = contact
@@ -98,7 +98,7 @@ class ContactDetailViewController: UIViewController {
         self.present(emailAddressesVC, animated: true, completion: nil)
     }
     
-    func editAddresses() {
+    private func editAddresses() {
         let addressesVC = AddContactAddressViewController(contact: self.contact, isEditing: true)
         addressesVC.didUpdateContact = { [weak self] (contact) in
             self?.contact = contact
@@ -107,7 +107,7 @@ class ContactDetailViewController: UIViewController {
         self.present(addressesVC, animated: true, completion: nil)
     }
     
-    func setDetailObjects() {
+    private func setDetailObjects() {
         if self.contactDetailHeaderView == nil {
             self.contactDetailHeaderView = ContactDetailHeaderView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.size.width, height: 120))
             self.tableView.tableHeaderView = self.contactDetailHeaderView
@@ -130,7 +130,7 @@ class ContactDetailViewController: UIViewController {
     }
     
     //MARK: - User actions
-    func placeCallTo(phoneNumber: String) {
+    private func placeCallTo(phoneNumber: String) {
         if let url = URL(string: "tel://1\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
@@ -138,7 +138,7 @@ class ContactDetailViewController: UIViewController {
         }
     }
     
-    func sendMessageTo(phoneNumber: String) {
+    private func sendMessageTo(phoneNumber: String) {
         if MFMessageComposeViewController.canSendText() {
             let composeVC = MFMessageComposeViewController()
             composeVC.messageComposeDelegate = self
@@ -149,7 +149,7 @@ class ContactDetailViewController: UIViewController {
         }
     }
     
-    func sendEmailTo(address: String) {
+    private func sendEmailTo(address: String) {
         if MFMailComposeViewController.canSendMail() {
             let mailVC = MFMailComposeViewController()
             mailVC.mailComposeDelegate = self
@@ -160,7 +160,7 @@ class ContactDetailViewController: UIViewController {
         }
     }
     
-    func openMapsTo(address: Address) {
+    private func openMapsTo(address: Address) {
         let street = address.street.replacingOccurrences(of: " ", with: "+")
         let city = address.city.replacingOccurrences(of: " ", with: "+")
         let state = address.state
@@ -172,7 +172,7 @@ class ContactDetailViewController: UIViewController {
         }
     }
     
-    func getDirectionsTo(address: Address) {
+    private func getDirectionsTo(address: Address) {
         let street = address.street.replacingOccurrences(of: " ", with: "+")
         let city = address.city.replacingOccurrences(of: " ", with: "+")
         let state = address.state

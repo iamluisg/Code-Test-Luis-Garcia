@@ -52,7 +52,7 @@ class AddContactViewController: UIViewController {
     }
     
     //MARK: - View Controller Setup
-    func setDOBDatePicker() {
+    private func setDOBDatePicker() {
         self.dobPicker.datePickerMode = .date
         self.dobPicker.maximumDate = Date()
         self.dobPicker.addTarget(self, action: #selector(setDOBText(sender:)), for: .valueChanged)
@@ -70,7 +70,7 @@ class AddContactViewController: UIViewController {
     }
     
     //MARK: - Validation methods
-    func validate(firstName: String, lastName: String) -> Bool {
+    private func validate(firstName: String, lastName: String) -> Bool {
         if Validate.isStringEmpty(firstName) || Validate.isStringEmpty(lastName) {
             self.presentAlert(title: "Empty Field", message: "Please fill in both First and Last names to save your contact.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             return false
@@ -80,21 +80,21 @@ class AddContactViewController: UIViewController {
     }
     
     //MARK: - User Actions
-    @objc func closeDOBPicker() {
+    @objc private func closeDOBPicker() {
         self.dobTextField.text = nil
         self.dobTextField.resignFirstResponder()
     }
     
-    @objc func doneDOBTextField() {
+    @objc private func doneDOBTextField() {
         self.dobTextField.resignFirstResponder()
     }
 
-    @objc func setDOBText(sender: UIDatePicker) {
+    @objc private func setDOBText(sender: UIDatePicker) {
         self.dobTextField.text = Date().getFormattedStringFromDate(date: self.dobPicker.date)
     }
    
     
-    @IBAction func saveContact(_ sender: Any) {
+    @IBAction private func saveContact(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         
         guard let firstName = self.firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let lastName = self.lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) else {
@@ -137,7 +137,7 @@ class AddContactViewController: UIViewController {
         }
     }
     
-    func presentAddDetailsOptionTo(contact: Contact) {
+    private func presentAddDetailsOptionTo(contact: Contact) {
         self.presentAlert(title: "Successfully Saved", message: "Would you like to add details to your contact?", type: .Alert, actions: [("Not Now", .cancel), ("Yes", .default)], completionHandler: { (response) in
             switch response {
             case 0:
@@ -155,7 +155,7 @@ class AddContactViewController: UIViewController {
         } )
     }
     
-    func endEditing(contact: Contact) {
+    private func endEditing(contact: Contact) {
         if let contact = self.contact {
             self.didUpdateContact?(contact)
         }
