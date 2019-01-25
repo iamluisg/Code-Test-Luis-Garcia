@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		9C122AE821D3F432005430B8 /* StatesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C122AE721D3F432005430B8 /* StatesHelper.swift */; };
+		9C3A435021FAA74200A0F8F5 /* ContactsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */; };
+		9C3A435A21FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A435921FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift */; };
+		9C3A436221FAAB6D00A0F8F5 /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A436121FAAB6D00A0F8F5 /* CoreDataManagerTests.swift */; };
+		9C3A436421FAABB700A0F8F5 /* CoreDataTestsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A436321FAABB700A0F8F5 /* CoreDataTestsStack.swift */; };
+		9C3A436621FAACB000A0F8F5 /* NSPersistentContainer+Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A436521FAACB000A0F8F5 /* NSPersistentContainer+Store.swift */; };
 		9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */; };
 		9C44CEE521CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9C44CEE321CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodeld */; };
 		9C44CEE721CA9B8C007F03C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C44CEE621CA9B8C007F03C2 /* Assets.xcassets */; };
@@ -57,8 +62,25 @@
 		9CEB8F8721D19F1C00766CBB /* ContactDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CEB8F8621D19F1C00766CBB /* ContactDetailHeaderView.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9C3A435C21FAAB4E00A0F8F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C44CED121CA9B8A007F03C2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9C44CED821CA9B8A007F03C2;
+			remoteInfo = "Code Test Luis Garcia";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		9C122AE721D3F432005430B8 /* StatesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesHelper.swift; sourceTree = "<group>"; };
+		9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsDataManager.swift; sourceTree = "<group>"; };
+		9C3A435721FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Test Luis Garcia Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C3A435921FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code_Test_Luis_Garcia_Tests.swift; sourceTree = "<group>"; };
+		9C3A435B21FAAB4E00A0F8F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C3A436121FAAB6D00A0F8F5 /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
+		9C3A436321FAABB700A0F8F5 /* CoreDataTestsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestsStack.swift; sourceTree = "<group>"; };
+		9C3A436521FAACB000A0F8F5 /* NSPersistentContainer+Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPersistentContainer+Store.swift"; sourceTree = "<group>"; };
 		9C44CED921CA9B8A007F03C2 /* Code Test Luis Garcia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Code Test Luis Garcia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C44CEDC21CA9B8A007F03C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C44CEE421CA9B8A007F03C2 /* Code_Test_Luis_Garcia.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Code_Test_Luis_Garcia.xcdatamodel; sourceTree = "<group>"; };
@@ -111,6 +133,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9C3A435421FAAB4E00A0F8F5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9C44CED621CA9B8A007F03C2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,10 +150,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C3A435821FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests */ = {
+			isa = PBXGroup;
+			children = (
+				9C3A435921FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift */,
+				9C3A436121FAAB6D00A0F8F5 /* CoreDataManagerTests.swift */,
+				9C3A436321FAABB700A0F8F5 /* CoreDataTestsStack.swift */,
+				9C3A436521FAACB000A0F8F5 /* NSPersistentContainer+Store.swift */,
+				9C3A435B21FAAB4E00A0F8F5 /* Info.plist */,
+			);
+			path = "Code Test Luis Garcia Tests";
+			sourceTree = "<group>";
+		};
 		9C44CED021CA9B8A007F03C2 = {
 			isa = PBXGroup;
 			children = (
 				9C44CEDB21CA9B8A007F03C2 /* Code Test Luis Garcia */,
+				9C3A435821FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests */,
 				9C44CEDA21CA9B8A007F03C2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -133,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				9C44CED921CA9B8A007F03C2 /* Code Test Luis Garcia.app */,
+				9C3A435721FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */,
+				9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */,
 			);
 			path = "Core Data Helpers";
 			sourceTree = "<group>";
@@ -268,6 +312,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9C3A435621FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9C3A435E21FAAB4E00A0F8F5 /* Build configuration list for PBXNativeTarget "Code Test Luis Garcia Tests" */;
+			buildPhases = (
+				9C3A435321FAAB4E00A0F8F5 /* Sources */,
+				9C3A435421FAAB4E00A0F8F5 /* Frameworks */,
+				9C3A435521FAAB4E00A0F8F5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9C3A435D21FAAB4E00A0F8F5 /* PBXTargetDependency */,
+			);
+			name = "Code Test Luis Garcia Tests";
+			productName = "Code Test Luis Garcia Tests";
+			productReference = 9C3A435721FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9C44CED821CA9B8A007F03C2 /* Code Test Luis Garcia */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C44CEEE21CA9B8C007F03C2 /* Build configuration list for PBXNativeTarget "Code Test Luis Garcia" */;
@@ -295,6 +357,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Luis Garcia";
 				TargetAttributes = {
+					9C3A435621FAAB4E00A0F8F5 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 9C44CED821CA9B8A007F03C2;
+					};
 					9C44CED821CA9B8A007F03C2 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -314,11 +380,19 @@
 			projectRoot = "";
 			targets = (
 				9C44CED821CA9B8A007F03C2 /* Code Test Luis Garcia */,
+				9C3A435621FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9C3A435521FAAB4E00A0F8F5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9C44CED721CA9B8A007F03C2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,6 +419,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9C3A435321FAAB4E00A0F8F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C3A436221FAAB6D00A0F8F5 /* CoreDataManagerTests.swift in Sources */,
+				9C3A435A21FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift in Sources */,
+				9C3A436421FAABB700A0F8F5 /* CoreDataTestsStack.swift in Sources */,
+				9C3A436621FAACB000A0F8F5 /* NSPersistentContainer+Store.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9C44CED521CA9B8A007F03C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -370,6 +455,7 @@
 				9CEB8F8221D1925400766CBB /* ContactDetailViewController.swift in Sources */,
 				9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */,
 				9CA6BC2D21CC2F2A00F39C1A /* AddCellView.swift in Sources */,
+				9C3A435021FAA74200A0F8F5 /* ContactsDataManager.swift in Sources */,
 				9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */,
 				9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */,
 				9CDB04C621CD36B800B54B4C /* AddContactPhoneViewController.swift in Sources */,
@@ -386,6 +472,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9C3A435D21FAAB4E00A0F8F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9C44CED821CA9B8A007F03C2 /* Code Test Luis Garcia */;
+			targetProxy = 9C3A435C21FAAB4E00A0F8F5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		9C44CEE821CA9B8C007F03C2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -398,6 +492,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9C3A435F21FAAB4E00A0F8F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D7ZF3W4J7F;
+				INFOPLIST_FILE = "Code Test Luis Garcia Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luis.Code-Test-Luis-Garcia-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Test Luis Garcia.app/Code Test Luis Garcia";
+			};
+			name = Debug;
+		};
+		9C3A436021FAAB4E00A0F8F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D7ZF3W4J7F;
+				INFOPLIST_FILE = "Code Test Luis Garcia Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.luis.Code-Test-Luis-Garcia-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Test Luis Garcia.app/Code Test Luis Garcia";
+			};
+			name = Release;
+		};
 		9C44CEEC21CA9B8C007F03C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -518,16 +652,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D7ZF3W4J7F;
 				INFOPLIST_FILE = "Code Test Luis Garcia/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Persons.Code-Test-Luis-Garcia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Persons Code Test Development";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -537,16 +672,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D7ZF3W4J7F;
 				INFOPLIST_FILE = "Code Test Luis Garcia/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Persons.Code-Test-Luis-Garcia";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Persons Code Test Distribution";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -555,6 +692,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9C3A435E21FAAB4E00A0F8F5 /* Build configuration list for PBXNativeTarget "Code Test Luis Garcia Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C3A435F21FAAB4E00A0F8F5 /* Debug */,
+				9C3A436021FAAB4E00A0F8F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9C44CED421CA9B8A007F03C2 /* Build configuration list for PBXProject "Code Test Luis Garcia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

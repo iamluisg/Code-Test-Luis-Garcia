@@ -9,21 +9,54 @@
 import Foundation
 import CoreData
 
+enum CoreDataConfiguration {
+    case production
+    case test
+}
+
 class CoreDataManager {
-    static let shared = CoreDataManager()
     
-    private init() {}
+    private var storeType: String!
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Code_Test_Luis_Garcia")
-        container.loadPersistentStores(completionHandler: { (store, error) in
-            print(store)
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
+        let persistentContainer = NSPersistentContainer(name: "Code_Test_Luis_Garcia")
+        let description = persistentContainer.persistentStoreDescriptions.first
+        description?.type = storeType
+        
+        return persistentContainer
     }()
+    
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let context = self.persistentContainer.newBackgroundContext()
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        return context
+    }()
+    
+    lazy var mainContext: NSManagedObjectContext = {
+        let context = self.persistentContainer.viewContext
+        context.automaticallyMergesChangesFromParent = true
+        
+        return context
+    }()
+    
+    static let shared = CoreDataManager()
+    
+    func setup(storeType: String = NSSQLiteStoreType, completion: (() -> Void)?) {
+        self.storeType = storeType
+        loadPersistentStore {
+            completion?()
+        }
+    }
+    
+    private func loadPersistentStore(completion: @escaping () -> Void) {
+        persistentContainer.loadPersistentStores { (description, error) in
+            guard error == nil else {
+                fatalError("was unable to load store \(String(describing: error?.localizedDescription))")
+            }
+            completion()
+        }
+    }
     
     func saveContact(firstName: String, lastName: String, dob: Date?, completion: @escaping (Contact?, NSError?) -> ()) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
