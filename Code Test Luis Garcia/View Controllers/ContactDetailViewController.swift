@@ -50,27 +50,8 @@ class ContactDetailViewController: UIViewController {
                                         action: #selector(showEditActionSheet))
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
-    
-    @objc private func showEditActionSheet() {
-        self.presentAlert(title: "What would you like to edit?", message: nil, type: .ActionSheet, actions: [("Edit Name/DOB", .default), ("Edit Phone Numbers", .default), ("Edit Email Addresses", .default), ("Edit Addresses", .default), ("Cancel", .cancel)]) { (response) in
-            switch response {
-            case 0:
-                self.editNameAndDOB()
-                return
-            case 1:
-                self.editPhoneNumbers()
-                return
-            case 2:
-                self.editEmailAddresses()
-                return
-            case 3:
-                self.editAddresses()
-                return
-            default: return
-            }
-        }
-    }
-    
+ 
+    //MARK: - Helper methods
     private func editNameAndDOB() {
         let addContactVC = AddContactViewController(contact: self.contact, isEditing: true)
         addContactVC.didUpdateContact = { [weak self] (contact) in
@@ -130,6 +111,26 @@ class ContactDetailViewController: UIViewController {
     }
     
     //MARK: - User actions
+    @objc private func showEditActionSheet() {
+        self.presentAlert(title: "What would you like to edit?", message: nil, type: .ActionSheet, actions: [("Edit Name/DOB", .default), ("Edit Phone Numbers", .default), ("Edit Email Addresses", .default), ("Edit Addresses", .default), ("Cancel", .cancel)]) { (response) in
+            switch response {
+            case 0:
+                self.editNameAndDOB()
+                return
+            case 1:
+                self.editPhoneNumbers()
+                return
+            case 2:
+                self.editEmailAddresses()
+                return
+            case 3:
+                self.editAddresses()
+                return
+            default: return
+            }
+        }
+    }
+    
     private func placeCallTo(phoneNumber: String) {
         if let url = URL(string: "tel://1\(phoneNumber)"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

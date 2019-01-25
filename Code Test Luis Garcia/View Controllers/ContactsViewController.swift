@@ -20,6 +20,7 @@ class ContactsViewController: UIViewController {
     private var isFiltered = false
     private var query = ""
     
+    //MARK: UIViewController lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Contacts"
@@ -78,7 +79,6 @@ class ContactsViewController: UIViewController {
 
 }
 
-
 extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -117,25 +117,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let contact = self.fetchedContacts.object(at: indexPath)
-        let emails = contact.email.allObjects
-        for email in emails {
-            if let x = email as? Email {
-                print(x.address)
-            }
-        }
-        let phones = contact.phone.allObjects
-        for phone in phones {
-            if let p = phone as? Phone {
-                print(p.number)
-            }
-        }
-        let addresses = contact.address.allObjects
-        for address in addresses {
-            if let a = address as? Address {
-                print(a.street)
-            }
-        }
-        
         self.navigationController?.pushViewController(ContactDetailViewController(contact: contact), animated: true)
     }
     
@@ -158,7 +139,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ContactsViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else {
             return
         }
@@ -170,7 +151,7 @@ extension ContactsViewController: UISearchBarDelegate {
         
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.isFiltered = false
         query = ""
         searchBar.text = nil
@@ -179,7 +160,7 @@ extension ContactsViewController: UISearchBarDelegate {
         self.contactsTableView.reloadData()
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             query = ""
             searchBar.text = nil

@@ -130,16 +130,4 @@ class ContactsDataManager {
             }
         }
     }
-    
-    //added for unit test purposes
-    func fetchUnitTestUser(firstName: String, lastName: String, dob: Date) -> Contact? {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
-        let context = backgroundContext
-        do {
-            let object = try context.fetch(fetchRequest)
-            return object.first as? Contact
-        } catch {
-            return nil
-        }
-    }
 }

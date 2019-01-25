@@ -66,10 +66,6 @@ class AddContactEmailViewController: UIViewController {
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    @objc private func completeAddContact() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.activeTextField?.resignFirstResponder()
         self.activeTextField = nil
@@ -94,6 +90,10 @@ class AddContactEmailViewController: UIViewController {
     }
     
     //MARK: - User actions
+    @objc private func completeAddContact() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     @IBAction private func saveEmailAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         guard let email = self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.emailTypeTextField.text else {

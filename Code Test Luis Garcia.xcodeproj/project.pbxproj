@@ -45,8 +45,6 @@
 		9CA6BC2721CC28AB00F39C1A /* PhoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2521CC28AB00F39C1A /* PhoneTableViewCell.xib */; };
 		9CA6BC2A21CC28B500F39C1A /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2821CC28B500F39C1A /* AddressTableViewCell.swift */; };
 		9CA6BC2B21CC28B500F39C1A /* AddressTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2921CC28B500F39C1A /* AddressTableViewCell.xib */; };
-		9CA6BC2D21CC2F2A00F39C1A /* AddCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2C21CC2F2A00F39C1A /* AddCellView.swift */; };
-		9CA6BC2F21CC2F3300F39C1A /* AddCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */; };
 		9CA6BC3221CC334B00F39C1A /* ContactInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */; };
 		9CA6BC3321CC334B00F39C1A /* ContactInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */; };
 		9CDB04C621CD36B800B54B4C /* AddContactPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */; };
@@ -115,8 +113,6 @@
 		9CA6BC2521CC28AB00F39C1A /* PhoneTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneTableViewCell.xib; sourceTree = "<group>"; };
 		9CA6BC2821CC28B500F39C1A /* AddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
 		9CA6BC2921CC28B500F39C1A /* AddressTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressTableViewCell.xib; sourceTree = "<group>"; };
-		9CA6BC2C21CC2F2A00F39C1A /* AddCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCellView.swift; sourceTree = "<group>"; };
-		9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCellView.xib; sourceTree = "<group>"; };
 		9CA6BC3021CC334B00F39C1A /* ContactInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoTableViewCell.swift; sourceTree = "<group>"; };
 		9CA6BC3121CC334B00F39C1A /* ContactInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactInfoTableViewCell.xib; sourceTree = "<group>"; };
 		9CDB04C421CD36B800B54B4C /* AddContactPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactPhoneViewController.swift; sourceTree = "<group>"; };
@@ -240,8 +236,6 @@
 			children = (
 				9C44CF0B21CAAE30007F03C2 /* EmptyStateView.swift */,
 				9C44CF0D21CAAE41007F03C2 /* EmptyStateView.xib */,
-				9CA6BC2C21CC2F2A00F39C1A /* AddCellView.swift */,
-				9CA6BC2E21CC2F3300F39C1A /* AddCellView.xib */,
 				9CEB8F8421D19F1000766CBB /* ContactDetailHeaderView.swift */,
 				9CEB8F8621D19F1C00766CBB /* ContactDetailHeaderView.xib */,
 			);
@@ -403,7 +397,6 @@
 				9C44CF1821CADA48007F03C2 /* AddContactViewController.xib in Resources */,
 				9CA6BC2321CC289C00F39C1A /* EmailTableViewCell.xib in Resources */,
 				9C44CEF421CA9DEE007F03C2 /* ContactsViewController.xib in Resources */,
-				9CA6BC2F21CC2F3300F39C1A /* AddCellView.xib in Resources */,
 				9CA6BC2721CC28AB00F39C1A /* PhoneTableViewCell.xib in Resources */,
 				9CA6BC2B21CC28B500F39C1A /* AddressTableViewCell.xib in Resources */,
 				9C44CF0E21CAAE41007F03C2 /* EmptyStateView.xib in Resources */,
@@ -454,7 +447,6 @@
 				9C44CF0221CAAA27007F03C2 /* Contact+CoreDataProperties.swift in Sources */,
 				9CEB8F8221D1925400766CBB /* ContactDetailViewController.swift in Sources */,
 				9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */,
-				9CA6BC2D21CC2F2A00F39C1A /* AddCellView.swift in Sources */,
 				9C3A435021FAA74200A0F8F5 /* ContactsDataManager.swift in Sources */,
 				9C44CF0921CAAC36007F03C2 /* CoreDataManager.swift in Sources */,
 				9C44CEDD21CA9B8A007F03C2 /* AppDelegate.swift in Sources */,

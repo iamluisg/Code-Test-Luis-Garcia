@@ -92,8 +92,8 @@ class AddContactAddressViewController: UIViewController {
         self.activeTextField?.resignFirstResponder()
         self.activeTextField = nil
     }
-    //MARK: - User actions
     
+    //MARK: - User actions
     @IBAction private func saveAddress(_ sender: Any) {
         self.activeTextField?.resignFirstResponder()
         guard let street = self.streetTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let city = self.cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let state = self.stateTextField.text, let zip = self.zipTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let type = self.typeTextField.text else {
@@ -143,7 +143,6 @@ class AddContactAddressViewController: UIViewController {
     }
     
 }
-
 
 extension AddContactAddressViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
