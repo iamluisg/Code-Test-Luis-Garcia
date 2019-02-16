@@ -139,7 +139,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ContactsViewController: UISearchBarDelegate {
-    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else {
             return
         }
@@ -148,10 +148,9 @@ extension ContactsViewController: UISearchBarDelegate {
         self.fetchContacts()
         searchBar.resignFirstResponder()
         self.contactsTableView.reloadData()
-        
     }
     
-    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.isFiltered = false
         query = ""
         searchBar.text = nil
@@ -160,7 +159,7 @@ extension ContactsViewController: UISearchBarDelegate {
         self.contactsTableView.reloadData()
     }
     
-    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             query = ""
             searchBar.text = nil
