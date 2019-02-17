@@ -34,13 +34,36 @@ class ContactsDataManager {
     }
     
     func update(firstName: String, lastName: String, dob: Date?, of contact: Contact, completion: @escaping (Contact?, NSError?) -> ()) {
-        backgroundContext.performAndWait {
-            let context = backgroundContext
+        let context = contact.managedObjectContext
+        context?.performAndWait {
             contact.setValue(firstName, forKey: "firstName")
             contact.setValue(lastName, forKey: "lastName")
             if let dob = dob {
                 contact.setValue(dob as NSDate, forKey: "dob")
             }
+            do {
+                try context?.save()
+                context?.refresh(contact, mergeChanges: true)
+                completion(contact, nil)
+            } catch {
+                completion(nil, error as NSError)
+            }
+        }
+    }
+    
+    func addEmailTo(contact: Contact, address: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
+        guard let context = contact.managedObjectContext else {
+            completion(nil, NSError(domain: "00", code: 00, userInfo: nil))
+            return
+        }
+        context.performAndWait {
+            let email = Email(context: context)
+            email.address = address
+            email.type = type
+            email.contact = contact
+            
+            contact.addToEmail(email)
+            
             do {
                 try context.save()
                 context.refresh(contact, mergeChanges: true)
@@ -49,32 +72,15 @@ class ContactsDataManager {
                 completion(nil, error as NSError)
             }
         }
-        
-    }
-    
-    func addEmailTo(contact: Contact, address: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
-        backgroundContext.performAndWait {
-            let email = Email(context: backgroundContext)
-            email.address = address
-            email.type = type
-            email.contact = contact
-            
-            contact.addToEmail(email)
-            
-            do {
-                try backgroundContext.save()
-                backgroundContext.refresh(contact, mergeChanges: true)
-                completion(contact, nil)
-            } catch {
-                completion(nil, error as NSError)
-            }
-        }
-        
     }
     
     func addPhoneTo(contact: Contact, number: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
-        backgroundContext.performAndWait {
-            let phone = Phone(context: backgroundContext)
+        guard let context = contact.managedObjectContext else {
+            completion(nil, NSError(domain: "00", code: 00, userInfo: nil))
+            return
+        }
+        context.performAndWait {
+            let phone = Phone(context: context)
             phone.number = number
             phone.type = type
             phone.contact = contact
@@ -82,19 +88,24 @@ class ContactsDataManager {
             contact.addToPhone(phone)
             
             do {
-                try backgroundContext.save()
-                backgroundContext.refresh(contact, mergeChanges: true)
+                try context.save()
+                context.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)
             }
         }
-        
     }
-    
+
     func addAddressTo(contact: Contact, street: String, streetDetail: String?, city: String, state: String, zip: String, type: String, completion: @escaping (Contact?, NSError?) -> ()) {
-        backgroundContext.performAndWait {
-            let address = Address(context: backgroundContext)
+        
+        guard let context = contact.managedObjectContext else {
+            completion(nil, NSError(domain: "00", code: 00, userInfo: nil))
+            return
+        }
+        
+        context.performAndWait {
+            let address = Address(context: context)
             address.street = street
             if let streetDetail = streetDetail {
                 address.streetDetail = streetDetail
@@ -109,21 +120,24 @@ class ContactsDataManager {
             contact.addToAddress(address)
             
             do {
-                try backgroundContext.save()
-                backgroundContext.refresh(contact, mergeChanges: true)
+                try context.save()
+                context.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)
             }
         }
-        
     }
     
     func deleteNSManagedObject(object: NSManagedObject, completion: @escaping(NSError?) -> ()) {
-        backgroundContext.performAndWait {
-            backgroundContext.delete(object)
+        guard let context = object.managedObjectContext else {
+            completion(NSError(domain: "00", code: 00, userInfo: nil))
+            return
+        }
+        context.performAndWait {
+            context.delete(object)
             do {
-                try backgroundContext.save()
+                try context.save()
                 completion(nil)
             } catch {
                 completion(error as NSError)

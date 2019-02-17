@@ -103,8 +103,8 @@ class AddContactEmailViewController: UIViewController {
             self.presentAlert(title: "Error", message: "Please fill in both email and type fields to save.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
         }
         guard self.validateEmail(email: email) else { return }
-        
-        CoreDataManager.shared.addEmailTo(contact: self.contact, address: email, type: type) { [weak self] (contact, error) in
+        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
+        cdm.addEmailTo(contact: self.contact, address: email, type: type) { [weak self] (contact, error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
@@ -118,7 +118,8 @@ class AddContactEmailViewController: UIViewController {
     }
     
     private func deleteEmail(object: Email, at indexPath: IndexPath) {
-        CoreDataManager.shared.deleteNSManagedObject(object: object) { [weak self] (error) in
+        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
+        cdm.deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
@@ -131,7 +132,8 @@ class AddContactEmailViewController: UIViewController {
     
     @IBAction private func nextPage(_ sender: Any) {
         if !self.isEditingContact {
-            self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
+            self.show(AddContactAddressViewController(contact: contact), sender: self)
+//            self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
         } else {
             self.didUpdateContact?(self.contact)
             self.dismiss(animated: true, completion: nil)

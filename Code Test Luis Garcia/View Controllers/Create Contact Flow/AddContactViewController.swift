@@ -113,7 +113,8 @@ class AddContactViewController: UIViewController {
                 self.presentAlert(title: "Error", message: "Could not successfully update your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
             }
-            CoreDataManager.shared.update(firstName: firstName, lastName: lastName, dob: dob, of: contact) { (contact, error) in
+            let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
+            cdm.update(firstName: firstName, lastName: lastName, dob: dob, of: contact) { (contact, error) in
                 if error != nil {
                     self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 } else {
@@ -123,17 +124,27 @@ class AddContactViewController: UIViewController {
                 }
             }
         } else {
-            CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+            let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
+            cdm.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
                 if error != nil {
                     self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 } else {
                     NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
-                    guard let contact = contact else {
-                        return
-                    }
+                    guard let contact = contact else { return }
                     self.presentAddDetailsOptionTo(contact: contact)
                 }
             }
+//            CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+//                if error != nil {
+//                    self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+//                } else {
+//                    NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
+//                    guard let contact = contact else {
+//                        return
+//                    }
+//                    self.presentAddDetailsOptionTo(contact: contact)
+//                }
+//            }
         }
     }
     
@@ -147,7 +158,8 @@ class AddContactViewController: UIViewController {
                 self.firstNameTextField.text = nil
                 self.lastNameTextField.text = nil
                 self.dobTextField.text = nil
-                self.navigationController?.pushViewController(AddContactPhoneViewController(contact: contact), animated: true)
+                self.show(AddContactPhoneViewController(contact: contact), sender: self)
+//                self.navigationController?.pushViewController(AddContactPhoneViewController(contact: contact), animated: true)
                 return
             default:
                 return

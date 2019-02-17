@@ -65,11 +65,13 @@ class ContactsViewController: UIViewController {
     
     //MARK: - User Actions
     @objc private func addContact() {
-        self.navigationController?.pushViewController(AddContactViewController(), animated: true)
+        self.show(AddContactViewController(), sender: self)
+//        self.navigationController?.pushViewController(AddContactViewController(), animated: true)
     }
     
     private func deleteContact(object: Contact, at indexPath: IndexPath) {
-        CoreDataManager.shared.deleteNSManagedObject(object: object) { (error) in
+        let cdm = ContactsDataManager.init(backgroundContext: CoreDataManager.shared.backgroundContext)
+        cdm.deleteNSManagedObject(object: object) { (error) in
             if error != nil {
                 self.presentAlert(title: "Error", message: "Could not successfully delete your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
@@ -117,7 +119,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let contact = self.fetchedContacts.object(at: indexPath)
-        self.navigationController?.pushViewController(ContactDetailViewController(contact: contact), animated: true)
+        self.show(ContactDetailViewController(contact: contact), sender: self)
     }
     
     func addEmptyStateView(_ tableView: UITableView, with message: String) {
