@@ -133,7 +133,6 @@ class AddContactEmailViewController: UIViewController {
     @IBAction private func nextPage(_ sender: Any) {
         if !self.isEditingContact {
             self.show(AddContactAddressViewController(contact: contact), sender: self)
-//            self.navigationController?.pushViewController(AddContactAddressViewController(contact: contact), animated: true)
         } else {
             self.didUpdateContact?(self.contact)
             self.dismiss(animated: true, completion: nil)

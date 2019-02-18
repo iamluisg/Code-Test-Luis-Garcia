@@ -138,7 +138,6 @@ class AddContactPhoneViewController: UIViewController {
             self.phoneTextField.text = nil
             self.contactTypeTextField.text = nil
             self.show(AddContactEmailViewController(contact: contact), sender: self)
-//            self.navigationController?.pushViewController(AddContactEmailViewController(contact: self.contact), animated: true)
         } else {
             self.didUpdateContact?(self.contact)
             self.dismiss(animated: true, completion: nil)

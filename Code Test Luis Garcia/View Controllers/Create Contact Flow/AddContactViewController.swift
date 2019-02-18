@@ -134,17 +134,6 @@ class AddContactViewController: UIViewController {
                     self.presentAddDetailsOptionTo(contact: contact)
                 }
             }
-//            CoreDataManager.shared.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
-//                if error != nil {
-//                    self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
-//                } else {
-//                    NotificationCenter.default.post(name: .refreshContactList, object: nil, userInfo: nil)
-//                    guard let contact = contact else {
-//                        return
-//                    }
-//                    self.presentAddDetailsOptionTo(contact: contact)
-//                }
-//            }
         }
     }
     
@@ -159,7 +148,6 @@ class AddContactViewController: UIViewController {
                 self.lastNameTextField.text = nil
                 self.dobTextField.text = nil
                 self.show(AddContactPhoneViewController(contact: contact), sender: self)
-//                self.navigationController?.pushViewController(AddContactPhoneViewController(contact: contact), animated: true)
                 return
             default:
                 return
