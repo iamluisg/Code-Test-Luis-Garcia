@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C122AE821D3F432005430B8 /* StatesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C122AE721D3F432005430B8 /* StatesHelper.swift */; };
+		9C151E37221A09B8009FE8EA /* TableViewFetchedResultsControllerDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C151E36221A09B8009FE8EA /* TableViewFetchedResultsControllerDelegateHandler.swift */; };
 		9C3A435021FAA74200A0F8F5 /* ContactsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */; };
 		9C3A435A21FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A435921FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift */; };
 		9C3A436221FAAB6D00A0F8F5 /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A436121FAAB6D00A0F8F5 /* CoreDataManagerTests.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		9C122AE721D3F432005430B8 /* StatesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatesHelper.swift; sourceTree = "<group>"; };
+		9C151E36221A09B8009FE8EA /* TableViewFetchedResultsControllerDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFetchedResultsControllerDelegateHandler.swift; sourceTree = "<group>"; };
 		9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsDataManager.swift; sourceTree = "<group>"; };
 		9C3A435721FAAB4E00A0F8F5 /* Code Test Luis Garcia Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Test Luis Garcia Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C3A435921FAAB4E00A0F8F5 /* Code_Test_Luis_Garcia_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code_Test_Luis_Garcia_Tests.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				9C44CF0821CAAC36007F03C2 /* CoreDataManager.swift */,
 				9C3A434F21FAA74200A0F8F5 /* ContactsDataManager.swift */,
+				9C151E36221A09B8009FE8EA /* TableViewFetchedResultsControllerDelegateHandler.swift */,
 			);
 			path = "Core Data Helpers";
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				9C44CF0C21CAAE30007F03C2 /* EmptyStateView.swift in Sources */,
 				9CA6BC2621CC28AB00F39C1A /* PhoneTableViewCell.swift in Sources */,
 				9C44CF0221CAAA27007F03C2 /* Contact+CoreDataProperties.swift in Sources */,
+				9C151E37221A09B8009FE8EA /* TableViewFetchedResultsControllerDelegateHandler.swift in Sources */,
 				9CEB8F8221D1925400766CBB /* ContactDetailViewController.swift in Sources */,
 				9CDB04C921CD5C4100B54B4C /* ContactInfoType.swift in Sources */,
 				9C3A435021FAA74200A0F8F5 /* ContactsDataManager.swift in Sources */,

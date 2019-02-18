@@ -18,24 +18,35 @@ class ContactsViewController: UIViewController {
     private let context = CoreDataManager.shared.persistentContainer.viewContext
     private var fetchedContacts: NSFetchedResultsController<Contact>!
     private var isFiltered = false
-    private var query = ""
+    
+    fileprivate lazy var fetchedResultsDelegateHandler: TableViewFetchedResultsControllerDelegateHandler = {
+       return TableViewFetchedResultsControllerDelegateHandler(tableView: self.contactsTableView)
+    }()
+    
+    fileprivate let sortDescriptor = NSSortDescriptor(key: #keyPath(Contact.lastName), ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+    
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Contact> = {
+        let fetchRequest = NSFetchRequest<Contact>(entityName: "Contact")
+        fetchRequest.sortDescriptors = [self.sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self.fetchedResultsDelegateHandler
+        
+        self.defaultResultsController = fetchedResultsController
+        
+        return fetchedResultsController
+    }()
+    
+    fileprivate var defaultResultsController: NSFetchedResultsController<Contact>?
     
     //MARK: UIViewController lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Contacts"
         self.contactsTableView.register(UINib(nibName: "ContactsTableViewCell", bundle: nil), forCellReuseIdentifier: ContactsTableViewCell.identifier)
-        self.fetchContacts()
         self.setNavigationButton()
         
-        NotificationCenter.default.addObserver(forName: .refreshContactList, object: nil, queue: nil) { [weak self] (note) in
-            self?.fetchContacts()
-            self?.contactsTableView.reloadData()
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: .refreshContactList, object: nil)
+        try! self.fetchedResultsController.performFetch()
     }
 
     private func setNavigationButton() {
@@ -45,28 +56,23 @@ class ContactsViewController: UIViewController {
         self.navigationItem.setRightBarButton(addButton, animated: false)
     }
     
-    private func fetchContacts() {
+    //MARK: - User Actions
+    private func searchContactsFor(_ query: String) {
         let request = Contact.fetchRequest() as NSFetchRequest<Contact>
-        if !query.isEmpty {
-            let lastNamePredicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
-            let firstNamePredicate = NSPredicate(format: "firstName CONTAINS[cd] %@", query)
-            request.predicate = NSCompoundPredicate(type: .or, subpredicates: [lastNamePredicate, firstNamePredicate])
-        }
-        let sort = NSSortDescriptor(key: #keyPath(Contact.lastName), ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
-        request.sortDescriptors = [sort]
+        let lastNamePredicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
+        let firstNamePredicate = NSPredicate(format: "firstName CONTAINS[cd] %@", query)
+        request.predicate = NSCompoundPredicate(type: .or, subpredicates: [lastNamePredicate, firstNamePredicate])
+        request.sortDescriptors = [self.sortDescriptor]
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataManager.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         do {
-            self.fetchedContacts = NSFetchedResultsController(fetchRequest: request, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
-            self.fetchedContacts.delegate = self
-            try self.fetchedContacts.performFetch()
+            try self.fetchedResultsController.performFetch()
         } catch {
-            self.presentAlert(title: "Error", message: "Could not successfully retrieve your contacts. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+            
         }
     }
     
-    //MARK: - User Actions
     @objc private func addContact() {
         self.show(AddContactViewController(), sender: self)
-//        self.navigationController?.pushViewController(AddContactViewController(), animated: true)
     }
     
     private func deleteContact(object: Contact, at indexPath: IndexPath) {
@@ -87,7 +93,7 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let objs = fetchedContacts.fetchedObjects else { return 0 }
+        guard let objs = self.fetchedResultsController.fetchedObjects else { return 0 }
         if objs.count == 0 {
             if self.isFiltered {
                 self.addEmptyStateView(tableView, with: "You have no contacts that match your search. Please try a different search.")
@@ -103,22 +109,23 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactsTableViewCell.identifier, for: indexPath) as! ContactsTableViewCell
-        let contact = self.fetchedContacts.object(at: indexPath)
-        cell.nameLabel.text = contact.fullName
+        let contact = self.fetchedResultsController.fetchedObjects?[indexPath.row]
+        
+        cell.nameLabel.text = contact?.fullName
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let contact = self.fetchedContacts.object(at: indexPath)
+            let contact = self.fetchedResultsController.object(at: indexPath)
             self.deleteContact(object: contact, at: indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let contact = self.fetchedContacts.object(at: indexPath)
+        let contact = self.fetchedResultsController.object(at: indexPath)
         self.show(ContactDetailViewController(contact: contact), sender: self)
     }
     
@@ -136,8 +143,6 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.backgroundView = nil
         self.emptyStateView = nil
     }
-    
-    
 }
 
 extension ContactsViewController: UISearchBarDelegate {
@@ -146,43 +151,26 @@ extension ContactsViewController: UISearchBarDelegate {
             return
         }
         self.isFiltered = true
-        self.query = text
-        self.fetchContacts()
+        self.searchContactsFor(text)
         searchBar.resignFirstResponder()
         self.contactsTableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.isFiltered = false
-        query = ""
         searchBar.text = nil
         searchBar.resignFirstResponder()
-        self.fetchContacts()
+        if let defaultResultsController = self.defaultResultsController {
+            self.fetchedResultsController = defaultResultsController
+        }
+        try! self.fetchedResultsController.performFetch()
         self.contactsTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            query = ""
             searchBar.text = nil
-            self.fetchContacts()
             self.contactsTableView.reloadData()
-        }
-    }
-}
-
-extension ContactsViewController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        let index = indexPath ?? (newIndexPath ?? nil)
-        guard let cellIndex = index else {
-            return
-        }
-        
-        switch type {
-        case .delete:
-            self.contactsTableView.deleteRows(at: [cellIndex], with: .fade)
-        default:
-            return
         }
     }
 }
