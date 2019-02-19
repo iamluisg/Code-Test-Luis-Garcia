@@ -43,7 +43,7 @@ class AddContactEmailViewController: UIViewController {
         guard let emails: [Email] = self.contact.email.allObjects as? [Email] else {
             return
         }
-        self.emailObjects =  emails.sorted(by: {$0.type < $1.type})//emails.sort(by: {$0.type < $1.type})
+        self.emailObjects =  emails.sorted(by: {$0.type < $1.type})
         self.setTypeTextFieldPicker()
         self.setNavigationButton()
         
@@ -101,10 +101,10 @@ class AddContactEmailViewController: UIViewController {
         }
         if Validate.isStringEmpty(type) || Validate.isStringEmpty(email) {
             self.presentAlert(title: "Error", message: "Please fill in both email and type fields to save.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
+            return
         }
         guard self.validateEmail(email: email) else { return }
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.addEmailTo(contact: self.contact, address: email, type: type) { [weak self] (contact, error) in
+        ContactsDataManager().addEmailTo(contact: self.contact, address: email, type: type) { [weak self] (contact, error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
@@ -118,8 +118,7 @@ class AddContactEmailViewController: UIViewController {
     }
     
     private func deleteEmail(object: Email, at indexPath: IndexPath) {
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.deleteNSManagedObject(object: object) { [weak self] (error) in
+        ContactsDataManager().deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return

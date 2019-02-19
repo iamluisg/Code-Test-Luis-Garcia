@@ -26,7 +26,7 @@ class ContactsViewController: UIViewController {
     fileprivate let sortDescriptor = NSSortDescriptor(key: #keyPath(Contact.lastName), ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
     
     fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Contact> = {
-        let fetchRequest = NSFetchRequest<Contact>(entityName: "Contact")
+        let fetchRequest: NSFetchRequest = Contact.fetchRequest()
         fetchRequest.sortDescriptors = [self.sortDescriptor]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -58,7 +58,7 @@ class ContactsViewController: UIViewController {
     
     //MARK: - User Actions
     private func searchContactsFor(_ query: String) {
-        let request = Contact.fetchRequest() as NSFetchRequest<Contact>
+        let request: NSFetchRequest = Contact.fetchRequest()
         let lastNamePredicate = NSPredicate(format: "lastName CONTAINS[cd] %@", query)
         let firstNamePredicate = NSPredicate(format: "firstName CONTAINS[cd] %@", query)
         request.predicate = NSCompoundPredicate(type: .or, subpredicates: [lastNamePredicate, firstNamePredicate])
@@ -76,8 +76,7 @@ class ContactsViewController: UIViewController {
     }
     
     private func deleteContact(object: Contact, at indexPath: IndexPath) {
-        let cdm = ContactsDataManager.init(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.deleteNSManagedObject(object: object) { (error) in
+        ContactsDataManager().deleteNSManagedObject(object: object) { (error) in
             if error != nil {
                 self.presentAlert(title: "Error", message: "Could not successfully delete your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return

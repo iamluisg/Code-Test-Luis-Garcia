@@ -43,7 +43,6 @@ class ContactsDataManager {
             }
             do {
                 try context?.save()
-                context?.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)
@@ -66,7 +65,6 @@ class ContactsDataManager {
             
             do {
                 try context.save()
-                context.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)
@@ -89,7 +87,6 @@ class ContactsDataManager {
             
             do {
                 try context.save()
-                context.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)
@@ -121,7 +118,6 @@ class ContactsDataManager {
             
             do {
                 try context.save()
-                context.refresh(contact, mergeChanges: true)
                 completion(contact, nil)
             } catch {
                 completion(nil, error as NSError)

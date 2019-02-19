@@ -37,6 +37,8 @@ class CoreDataManager {
     
     static let shared = CoreDataManager()
     
+    private init() { }
+    
     func setup(storeType: String = NSSQLiteStoreType, completion: (() -> Void)?) {
         self.storeType = storeType
         loadPersistentStore {

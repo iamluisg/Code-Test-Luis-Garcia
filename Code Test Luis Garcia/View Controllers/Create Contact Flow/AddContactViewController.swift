@@ -113,8 +113,7 @@ class AddContactViewController: UIViewController {
                 self.presentAlert(title: "Error", message: "Could not successfully update your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
             }
-            let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-            cdm.update(firstName: firstName, lastName: lastName, dob: dob, of: contact) { (contact, error) in
+            ContactsDataManager().update(firstName: firstName, lastName: lastName, dob: dob, of: contact) { (contact, error) in
                 if error != nil {
                     self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 } else {
@@ -124,8 +123,7 @@ class AddContactViewController: UIViewController {
                 }
             }
         } else {
-            let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-            cdm.saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
+            ContactsDataManager().saveContact(firstName: firstName, lastName: lastName, dob: dob) { (contact, error) in
                 if error != nil {
                     self.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 } else {

@@ -107,8 +107,7 @@ class AddContactAddressViewController: UIViewController {
             self.presentAlert(title: "Error", message: "Please enter a valid US zip code.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             return
         }
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.addAddressTo(contact: self.contact, street: street, streetDetail: self.streetDetailTextField.text, city: city, state: state, zip: zip, type: type) { [weak self] (contact, error) in
+        ContactsDataManager().addAddressTo(contact: self.contact, street: street, streetDetail: self.streetDetailTextField.text, city: city, state: state, zip: zip, type: type) { [weak self] (contact, error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
@@ -126,8 +125,7 @@ class AddContactAddressViewController: UIViewController {
     }
     
     private func deleteAddress(object: Address, at indexPath: IndexPath) {
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.deleteNSManagedObject(object: object) { [weak self] (error) in
+        ContactsDataManager().deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return

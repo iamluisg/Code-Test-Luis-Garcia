@@ -106,8 +106,7 @@ class AddContactPhoneViewController: UIViewController {
             self.presentAlert(title: "Error", message: "Please use a valid phone number.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             return
         }
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.addPhoneTo(contact: self.contact, number: strippedNumber, type: type) { [weak self] (contact, error) in
+        ContactsDataManager().addPhoneTo(contact: self.contact, number: strippedNumber, type: type) { [weak self] (contact, error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not successfully save your contact. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
             } else {
@@ -121,8 +120,7 @@ class AddContactPhoneViewController: UIViewController {
     }
     
     private func deletePhoneNumber(object: Phone, at indexPath: IndexPath) {
-        let cdm = ContactsDataManager(backgroundContext: CoreDataManager.shared.backgroundContext)
-        cdm.deleteNSManagedObject(object: object) { [weak self] (error) in
+        ContactsDataManager().deleteNSManagedObject(object: object) { [weak self] (error) in
             if error != nil {
                 self?.presentAlert(title: "Error", message: "Could not delete the object. Please try again.", type: .Alert, actions: [("Done", .default)], completionHandler: nil)
                 return
